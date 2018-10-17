@@ -1,0 +1,18 @@
+CREATE USER 'fyp_user'@'localhost' IDENTIFIED BY 'fyp_password@my123!';
+GRANT ALL PRIVILEGES ON * . * TO 'fyp_user'@'localhost';
+FLUSH PRIVILEGES;
+CREATE DATABASE fyp;
+
+
+
+CREATE TABLE car_data (
+    id int NOT NULL AUTO_INCREMENT,
+    car_reg varchar(255),
+    date varchar(255),
+    valid_permit varchar(255),
+    x_coord varchar(255),
+    y_coord varchar(255),
+    PRIMARY KEY (ID)
+);
+insert into car_data(car_reg) values('123');
+

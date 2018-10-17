@@ -1,34 +1,17 @@
 extends layout
 
 block content
-
-    form(action='/insert_into_db')
-      | Insert into the database
-      br
-      input(name='insertCarRegIntoDB', value='', type='text')
-      br
-      input(value='Submit', type='submit')
-
-    // each user in car_data
-    //   li=user.car_reg
-
-
-    form(action='/check_value_in_db')
-        | Check if the car is in the database, can be verified by cli so far
-        br
-        input(name='checkValueInDB', value='', type='text')
-        br
-        input(value='Submit', type='submit')
-
     table
         tbody
             tr
+                th ID
                 th Car reg plate
                 th Timestamp
                 th Valid permit
                 th X coord
                 th Y coord
             each user in car_data
+                td=user.id
                 td=user.car_reg
                 td=user.time
                 td=user.valid_permit
