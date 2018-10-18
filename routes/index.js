@@ -21,11 +21,11 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
     var agentRegex=/^.*(?i)(OpenAlpr).*$/;
     if(req.headers.user-agent.match(agentRegex)){
-        let car_reg=req.body.best_plate.plate;
-        let date=moment().format('MMMM Do YYYY, h:mm:ss a');
-        let x_coord="N/A";
-        let y_coord="N/A";
-        let valid_permit=false;
+        var car_reg=req.body.best_plate.plate;
+        var date=moment().format('MMMM Do YYYY, h:mm:ss a');
+        var x_coord="N/A";
+        var y_coord="N/A";
+        var valid_permit=false;
 
         connection.query('SELECT * FROM valid_permits', function (error, results, fields) {
             if(error){
