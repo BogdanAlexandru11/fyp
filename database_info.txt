@@ -4,7 +4,6 @@ FLUSH PRIVILEGES;
 CREATE DATABASE fyp;
 
 
-
 CREATE TABLE car_data (
     id int NOT NULL AUTO_INCREMENT,
     car_reg varchar(255),
@@ -16,7 +15,6 @@ CREATE TABLE car_data (
 );
 
 
-
 CREATE TABLE valid_permits (
     id int NOT NULL AUTO_INCREMENT,
     car_reg varchar(255),
@@ -24,10 +22,7 @@ CREATE TABLE valid_permits (
     PRIMARY KEY (ID)
 );
 
+
 insert into valid_permits(car_reg, paidDate) values('12CW1484', '18-10.2018');
-
-
-  
-
 insert into car_data(car_reg) values('123');
 
