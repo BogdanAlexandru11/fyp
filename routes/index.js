@@ -3,6 +3,7 @@ var router = express.Router();
 var mysql = require('mysql');
 var moment = require('moment');
 var Promise = require('promise');
+var nodemailer = require('nodemailer');
 
 var connection = mysql.createConnection({
     host     : 'localhost',
@@ -10,10 +11,18 @@ var connection = mysql.createConnection({
     password : 'fyp_password@my123!',
     database : 'fyp'
 });
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'alex.fyp2018@gmail.com',
+        pass: 'Password123!@#'
+    }
+});
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    connection.query('SELECT * FROM car_data ORDER BY date DESC', function (error, results, fields) {
+    connection.query('SELECT * FROM car_data ORDER BY id DESC', function (error, results, fields) {
         res.render('index', { car_data : results });
     });
 });
@@ -25,7 +34,6 @@ router.post('/', function(req, res, next) {
         var x_coord="N/A";
         var y_coord="N/A";
         var valid_permit="false";
-
         connection.query('SELECT * FROM valid_permits', function (error, results, fields) {
             for(var i =0; i <results.length;i++){
                 if(results[i].car_reg===car_reg){
@@ -36,25 +44,27 @@ router.post('/', function(req, res, next) {
             if(err){
                 console.log(err);
             }
+            const mailOptions = {
+                from: 'alex.fyp2018@gmail.com', // sender address
+                to: 'abcbogdan11@gmail.com', // list of receivers
+                subject: 'Car park updates', // Subject line
+                html: 'Car withe the reg '+ car_reg + ' was found in the car park at '+date+' without a valid parking permit' // plain text body
+            };
 
-            var send = require('gmail-send')({
-                user: 'alex.fyp2018@gmail.com',
-                // user: credentials.user,                  // Your GMail account used to send emails
-                pass: 'Password123!@#',
-                // pass: credentials.pass,                  // Application-specific password
-                to:   'abcbogdan11@gmail.com',
-                subject: 'Car park updates',
-                text:    'Car withe the reg '+ car_reg + ' was found in the car park at '+date+' without a valid parking permit',         // Plain text
-                //html:    '<b>html text</b>'            // HTML
+            transporter.sendMail(mailOptions, function (err, info) {
+                if(err)
+                    console.log(err);
+                else
+                    console.log(info);
             });
         });
-        connection.query('SELECT * FROM car_data ORDER BY date DESC', function (error, car_results, fields) {
+        connection.query('SELECT * FROM car_data ORDER BY id DESC', function (error, car_results, fields) {
                 res.render('index', { car_data : car_results });
             });
         });
     }
     else{
-        connection.query('SELECT * FROM car_data ORDER BY date DESC', function (error, car_results, fields) {
+        connection.query('SELECT * FROM car_data ORDER BY id DESC', function (error, car_results, fields) {
             res.render('index', { car_data : car_results });
         });
     }
