@@ -18,5 +18,8 @@
     "nodemailer": "^4.6.8",
     "nodemon": "^1.18.4",
     "pug": "2.0.0-beta11"
+  },
+  "engines": {
+    "node": "6.9.4" 
   }
 }
