@@ -50,12 +50,9 @@ router.post('/', function(req, res, next) {
                 subject: 'Car park updates', // Subject line
                 html: 'Car withe the reg '+ car_reg + ' was found in the car park at '+date+' without a valid parking permit' // plain text body
             };
-
-            transporter.sendMail(mailOptions, function (err, info) {
-                if(err)
-                    console.log(err);
-                else
-                    console.log(info);
+            transporter.sendMail(mailOptions, function (mailerr, info) {
+                if(mailerr)
+                    console.log(mailerr);
             });
         });
         connection.query('SELECT * FROM car_data ORDER BY id DESC', function (error, car_results, fields) {
