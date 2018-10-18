@@ -26,5 +26,7 @@ CREATE TABLE valid_permits (
 
 
 
+  
+
 insert into car_data(car_reg) values('123');
 
