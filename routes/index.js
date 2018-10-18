@@ -20,29 +20,28 @@ router.get('/', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
     // var agentRegex=/^.*(?i)(OpenAlpr).*$/;
-    console.log(req);
     if(req.headers.host==='46.101.52.245:3000'){
         var car_reg=req.body.best_plate.plate;
         var date=moment().format('MMMM Do YYYY, h:mm:ss a');
         var x_coord="N/A";
         var y_coord="N/A";
-        var valid_permit=false;
+        var valid_permit="false";
 
         connection.query('SELECT * FROM valid_permits', function (error, results, fields) {
             for(var i =0; i <results.length;i++){
                 if(results[i].car_reg===car_reg){
-                    valid_permit=true;
+                    valid_permit="true";
                 }
             }
         connection.query('INSERT INTO car_data (car_reg, date, valid_permit, x_coord, y_coord) VALUES (?,?,?,?,?)', [car_reg,date,valid_permit,x_coord,y_coord], function (err,result) {
             if(err){
                 console.log(err);
-                console.log(car_reg +" + db");
-                console.log(date +" + db");
-                console.log(valid_permit +" + db");
-                console.log(x_coord + " + db");
-                console.log(y_coord +" + db");
             }
+            console.log(car_reg +" + db");
+            console.log(date +" + db");
+            console.log(valid_permit +" + db");
+            console.log(x_coord + " + db");
+            console.log(y_coord +" + db");
         });
         connection.query('SELECT * FROM car_data ORDER BY date DESC', function (error, car_results, fields) {
                 res.render('index', { car_data : car_results });
