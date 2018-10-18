@@ -10,10 +10,12 @@
     "debug": "~2.6.9",
     "dotenv": "^6.1.0",
     "express": "~4.16.0",
+    "gmail-send": "^1.2.14",
     "http-errors": "~1.6.2",
     "moment": "^2.22.2",
     "morgan": "~1.9.0",
     "mysql": "^2.16.0",
+    "nodemailer": "^4.6.8",
     "nodemon": "^1.18.4",
     "pug": "2.0.0-beta11"
   }

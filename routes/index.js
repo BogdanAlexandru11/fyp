@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var mysql      = require('mysql');
-var moment= require('moment');
+var mysql = require('mysql');
+var moment = require('moment');
 var Promise = require('promise');
 
 var connection = mysql.createConnection({
@@ -19,7 +19,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-    // var agentRegex=/^.*(?i)(OpenAlpr).*$/;
     if(req.headers.host==='46.101.52.245:3000'){
         var car_reg=req.body.best_plate.plate;
         var date=moment().format('MMMM Do YYYY, h:mm:ss a');
@@ -37,11 +36,17 @@ router.post('/', function(req, res, next) {
             if(err){
                 console.log(err);
             }
-            console.log(car_reg +" + db");
-            console.log(date +" + db");
-            console.log(valid_permit +" + db");
-            console.log(x_coord + " + db");
-            console.log(y_coord +" + db");
+
+            var send = require('gmail-send')({
+                user: 'alex.fyp2018@gmail.com',
+                // user: credentials.user,                  // Your GMail account used to send emails
+                pass: 'Password123!@#',
+                // pass: credentials.pass,                  // Application-specific password
+                to:   'abcbogdan11@gmail.com',
+                subject: 'Car park updates',
+                text:    'Car withe the reg '+ car_reg + ' was found in the car park at '+date+' without a valid parking permit',         // Plain text
+                //html:    '<b>html text</b>'            // HTML
+            });
         });
         connection.query('SELECT * FROM car_data ORDER BY date DESC', function (error, car_results, fields) {
                 res.render('index', { car_data : car_results });
@@ -54,20 +59,5 @@ router.post('/', function(req, res, next) {
         });
     }
 });
-
-// router.get('/insert_into_db', function(req, res, next) {
-//     console.log(req.query.insertCarRegIntoDB);
-//     connection.query('INSERT INTO car_data (car_reg) VALUES (?)', [req.query.insertCarRegIntoDB], function (err, result) {
-//     res.redirect('/');
-//     });
-// });
-//
-// router.get('/check_value_in_db', function(req, res, next) {
-//     connection.query('SELECT * FROM car_data WHERE car_reg=?', [req.query.checkValueInDB], function (err, result) {
-//         console.log(result);
-//         res.redirect('/');
-//     });
-// });
-
 
 module.exports = router;

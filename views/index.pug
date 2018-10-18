@@ -1,22 +1,27 @@
-extends layout
+//extends layout
+doctype html
+head
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u', crossorigin='anonymous')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+body
+    .center
+        block content
+            table
+                tbody
+                    tr
+                        th ID
+                        th Car reg plate
+                        th Timestamp
+                        th Valid permit
+                        th X coord
+                        th Y coord
 
-block content
-    p hello there last test today - laptop - cs424
-    table
-        tbody
-            tr
-                th ID
-                th Car reg plate
-                th Timestamp
-                th Valid permit
-                th X coord
-                th Y coord
-            each user in car_data
-                td=user.id
-                td=user.car_reg
-                td=user.date
-                td=user.valid_permit
-                td=user.x_coord
-                td=user.y_coord
-                tr
+                    each user in car_data
+                        td=user.id
+                        td=user.car_reg
+                        td=user.date
+                        td=user.valid_permit
+                        td=user.x_coord
+                        td=user.y_coord
+                        tr
 
