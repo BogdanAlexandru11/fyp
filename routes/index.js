@@ -44,13 +44,13 @@ router.post('/', function(req, res, next) {
             if(err){
                 console.log(err);
             }
-            const mailOptions = {
+            var mailOptions = {
                 from: 'alex.fyp2018@gmail.com', // sender address
                 to: 'abcbogdan11@gmail.com', // list of receivers
                 subject: 'Car park updates', // Subject line
                 html: 'Car withe the reg '+ car_reg + ' was found in the car park at '+date+' without a valid parking permit' // plain text body
             };
-                
+
             transporter.sendMail(mailOptions, function (mailerr, info) {
                 if(mailerr)
                     console.log(mailerr);
