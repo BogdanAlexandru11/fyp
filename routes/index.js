@@ -33,7 +33,7 @@ router.post('/', function(req, res, next) {
     //check if the request is coming in from openalpr then
 
     let val1="openalpr";
-    if(val1==="openalpr2"){
+    if(val1==="openalpr"){
         // car_reg varchar(255),
         //     date varchar(255),
         //     valid_permit varchar(255),
