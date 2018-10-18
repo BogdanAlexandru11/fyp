@@ -19,8 +19,9 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-    var agentRegex=/^.*(?i)(OpenAlpr).*$/;
-    if(req.headers.user-agent.match(agentRegex)){
+    // var agentRegex=/^.*(?i)(OpenAlpr).*$/;
+
+    if(req.headers.host==='46.101.52.245:3000'){
         var car_reg=req.body.best_plate.plate;
         var date=moment().format('MMMM Do YYYY, h:mm:ss a');
         var x_coord="N/A";
@@ -28,46 +29,22 @@ router.post('/', function(req, res, next) {
         var valid_permit=false;
 
         connection.query('SELECT * FROM valid_permits', function (error, results, fields) {
-            if(error){
-                console.log(error);
-            }
             for(var i =0; i <results.length;i++){
                 if(results[i].car_reg===car_reg){
                     valid_permit=true;
                 }
             }
-                connection.query('INSERT INTO car_data (car_reg, date, valid_permit, x_coord, y_coord) VALUES (?,?,?,?,?)', [car_reg,date,valid_permit,x_coord,y_coord], function (err,result) {
-            });
-
-            connection.query('SELECT * FROM car_data ORDER BY date DESC', function (error, car_results, fields) {
-                if(error){
-                    console.log(error);
-                }
-                //check here if the car is in the database, if it's not, send an email stating that it is not in the database
+        connection.query('INSERT INTO car_data (car_reg, date, valid_permit, x_coord, y_coord) VALUES (?,?,?,?,?)', [car_reg,date,valid_permit,x_coord,y_coord], function (err,result) {});
+        connection.query('SELECT * FROM car_data ORDER BY date DESC', function (error, car_results, fields) {
                 res.render('index', { car_data : car_results });
             });
-
-            //check here if the car is in the database, if it's not, send an email stating that it is not in the database
         });
-
-
-
     }
-
-
-    // create a table with the cars that have a valid parking permit
-
-    //then check each car againt that database, then insert the data into the car_data table
-
-
-    //     connection.query('INSERT INTO car_data (car_reg, date, valid_permit, x_coord, y_coord) VALUES (?,?,?,?,?)', [car_reg,date,valid_permit,x_coord,y_coord], function (err, result) {
-    //      res.redirect('/');
-    // });
-
-    connection.query('SELECT * FROM car_data', function (error, results, fields) {
-        //check here if the car is in the database, if it's not, send an email stating that it is not in the database
-        res.render('index', { car_data : results });
-    });
+    else{
+        connection.query('SELECT * FROM car_data ORDER BY date DESC', function (error, car_results, fields) {
+            res.render('index', { car_data : car_results });
+        });
+    }
 });
 
 // router.get('/insert_into_db', function(req, res, next) {
