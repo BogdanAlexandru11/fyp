@@ -4,9 +4,7 @@
     <bookmark url="file://$PROJECT_DIR$/routes/index.js" line="20" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ff2d03fc-1cc3-48c5-9c57-c8f5b642236c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/views/index.pug" beforeDir="false" afterPath="$PROJECT_DIR$/views/index.pug" afterDir="false" />
-    </list>
+    <list default="true" id="ff2d03fc-1cc3-48c5-9c57-c8f5b642236c" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -20,7 +18,7 @@
     <session id="389274180">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="3" />
+          <entry key="project.closed" value="4" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.4" value="1" />
           <entry key="project.open.time.5" value="1" />
@@ -133,7 +131,7 @@
       <path value="$PROJECT_DIR$/package.json" />
     </packageJsonPaths>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="1920" />
     <option name="y" value="109" />
     <option name="width" value="1910" />
@@ -217,18 +215,17 @@
       <workItem from="1539452685069" duration="26000" />
       <workItem from="1539452724086" duration="5204000" />
       <workItem from="1539804401091" duration="1267000" />
-      <workItem from="1539806235527" duration="5571000" />
+      <workItem from="1539806235527" duration="6174000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12068000" />
+    <option name="totallyTimeSpent" value="12671000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1920" y="109" width="1910" height="741" extended-state="0" />
-    <editor active="true" />
+    <frame x="1920" y="25" width="1920" height="990" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49915966" visible="true" weight="0.25119236" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49915966" visible="true" weight="0.24986821" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" sideWeight="0.50084037" side_tool="true" weight="0.24986821" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -242,7 +239,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.30278233" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.21511628" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
