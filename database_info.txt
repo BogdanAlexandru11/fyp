@@ -20,10 +20,11 @@ CREATE TABLE car_data (
 CREATE TABLE valid_permits (
     id int NOT NULL AUTO_INCREMENT,
     car_reg varchar(255),
-    paidDate archar(255)
+    paidDate varchar(255),
     PRIMARY KEY (ID)
 );
 
+insert into valid_permits(car_reg, paidDate) values('12CW1484', '18-10.2018');
 
 
   
