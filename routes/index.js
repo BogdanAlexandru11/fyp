@@ -32,13 +32,11 @@ router.post('/', function(req, res, next) {
 
     //check if the request is coming in from openalpr then
 
-    let val1="openalpr";
-    if(val1==="openalpr"){
-        // car_reg varchar(255),
-        //     date varchar(255),
-        //     valid_permit varchar(255),
-        //     x_coord varchar(255),
-        //     y_coord varchar(255),
+
+
+    // create a table with the cars that have a valid parking permit
+
+    //then check each car againt that database, then insert the data into the car_data table
 
     let car_reg="car_reg1"; // get it from the post req
     let date=moment().format('MMMM Do YYYY, h:mm:ss a');
@@ -47,18 +45,17 @@ router.post('/', function(req, res, next) {
     let x_coord="N/A";
     let y_coord="N/A";
 
-    //     connection.query('INSERT INTO car_data (car_reg, date, valid_permit, x_coord, y_coord) VALUES (?,?,?,?,?)', [car_reg,date,valid_permit,x_coord,y_coord], function (err, result) {
-    //      res.redirect('/');
-    // });
+
 
         console.log(car_reg);
         console.log(date);
         console.log(valid_permid);
         console.log(x_coord);
         console.log(y_coord);
-    }
 
-
+    //     connection.query('INSERT INTO car_data (car_reg, date, valid_permit, x_coord, y_coord) VALUES (?,?,?,?,?)', [car_reg,date,valid_permit,x_coord,y_coord], function (err, result) {
+    //      res.redirect('/');
+    // });
 
     connection.query('SELECT * FROM car_data', function (error, results, fields) {
         //check here if the car is in the database, if it's not, send an email stating that it is not in the database

@@ -14,5 +14,17 @@ CREATE TABLE car_data (
     y_coord varchar(255),
     PRIMARY KEY (ID)
 );
+
+
+
+CREATE TABLE valid_permits (
+    id int NOT NULL AUTO_INCREMENT,
+    car_reg varchar(255),
+    paidDate archar(255)
+    PRIMARY KEY (ID)
+);
+
+
+
 insert into car_data(car_reg) values('123');
 
