@@ -23,6 +23,7 @@ CREATE TABLE valid_permits (
 );
 
 
+ 
 insert into valid_permits(car_reg, paidDate) values('12CW1484', '18-10.2018');
 insert into car_data(car_reg) values('123');
 
