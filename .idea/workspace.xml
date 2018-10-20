@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="99c70e4c-a337-497a-8956-ab451ba54fd9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/database_info.txt" beforeDir="false" afterPath="$PROJECT_DIR$/database_info.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/geckodriver.log" beforeDir="false" afterPath="$PROJECT_DIR$/geckodriver.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/index.pug" beforeDir="false" afterPath="$PROJECT_DIR$/views/index.pug" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -54,7 +51,7 @@
         <counts>
           <entry key="css" value="14" />
           <entry key="gitignore" value="5" />
-          <entry key="js" value="3284" />
+          <entry key="js" value="3447" />
           <entry key="json" value="2" />
           <entry key="pug" value="174" />
           <entry key="txt" value="107" />
@@ -65,7 +62,7 @@
           <entry key="CSS" value="14" />
           <entry key="JSON" value="2" />
           <entry key="Jade" value="174" />
-          <entry key="JavaScript" value="3284" />
+          <entry key="JavaScript" value="3447" />
           <entry key="PLAIN_TEXT" value="112" />
         </counts>
       </usages-collector>
@@ -100,7 +97,7 @@
         <entry file="file://$PROJECT_DIR$/routes/index.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="165">
-              <caret line="24" selection-start-line="24" selection-end-line="24" />
+              <caret line="190" column="231" selection-start-line="190" selection-start-column="231" selection-end-line="190" selection-end-column="231" />
             </state>
           </provider>
         </entry>
@@ -290,12 +287,12 @@
       <workItem from="1539891079611" duration="7336000" />
       <workItem from="1539899707922" duration="3942000" />
       <workItem from="1539944251929" duration="419000" />
-      <workItem from="1540051708696" duration="9951000" />
+      <workItem from="1540051708696" duration="11349000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="21648000" />
+    <option name="totallyTimeSpent" value="23046000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-2" width="1920" height="1017" extended-state="6" />
@@ -412,7 +409,7 @@
     <entry file="file://$PROJECT_DIR$/routes/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
-          <caret line="24" selection-start-line="24" selection-end-line="24" />
+          <caret line="190" column="231" selection-start-line="190" selection-start-column="231" selection-end-line="190" selection-end-column="231" />
         </state>
       </provider>
     </entry>
