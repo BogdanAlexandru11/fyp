@@ -22,18 +22,8 @@ var transporter = nodemailer.createTransport({
 });
 
 
-/* GET home page. */
 router.get('/', function (req, res, next) {
     connection.query('SELECT * FROM car_data ORDER BY id DESC', function (error, results, fields) {
-
-        var nctDataPromise = getNctData('07oy2033');
-        nctDataPromise.then(function (succ) {
-            console.log(succ);
-        }).then(function (err) {
-            // console.log(err);
-        }).then(function (test) {
-        });
-
         res.render('index', {car_data: results});
 
 
@@ -41,55 +31,123 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/', function (req, res, next) {
+    var regex=/\d{2,3}[a-zA-Z]{1,2}\d{1,6}/;
+
     //change this to the sender lol
     if (req.headers.host === '46.101.52.245:3000') {
-        var car_reg = req.body.best_plate.plate;
-        var date = moment().format('MMMM Do YYYY, h:mm:ss a');
-        var x_coord = "N/A";
-        var y_coord = "N/A";
-        var valid_permit = "false";
-        connection.query('SELECT * FROM valid_permits', function (error, results, fields) {
+        var car_data={
+            car_reg : req.body.best_plate.plate,
+            date : moment().format('MMMM Do YYYY, h:mm:ss a'),
+            x_coord: '"N/A"',
+            y_coord : '"N/A"',
+            valid_permit : 'false',
+            nct : ''
+        };
+        // var valid_permit = "false";
 
-            // return checkValidPermits = new Promise((found, notfound) => {
-            //     for (var i = 0; i < results.length; i++) {
-            //         if (results[i].car_reg === car_reg) {
-            //             valid_permit = "true";
+            // var checkValidPermits = new Promise((resolve, reject) => {
+            //     connection.query('SELECT * FROM valid_permits', function (error, results, fields) {
+            //         var valid_permit = "false";
+            //         for (var i = 0; i < results.length; i++) {
+            //             if (results[i].car_reg === car_reg) {
+            //                 valid_permit = "true";
+            //             }
             //         }
-            //     }
-            //
-            //
-            //
+            //         if (valid_permit === "true") {
+            //             resolve(valid_permit);
+            //         }
+            //         else {
+            //             reject(valid_permit);
+            //         }
+            //     });
             // });
 
-            for (var i = 0; i < results.length; i++) {
-                if (results[i].car_reg === car_reg) {
-                    valid_permit = "true";
-                }
-            }
-            connection.query('INSERT INTO car_data (car_reg, date, valid_permit, x_coord, y_coord) VALUES (?,?,?,?,?)', [car_reg, date, valid_permit, x_coord, y_coord], function (err, result) {
-                if (err) {
-                    console.log(err);
-                }
-                var mailOptions = {
-                    from: 'alex.fyp2018@gmail.com', // sender address
-                    to: 'abcbogdan11@gmail.com', // list of receivers
-                    subject: 'Car park updates', // Subject line
-                    html: 'Car withe the reg ' + car_reg + ' was found in the car park at ' + date + ' without a valid parking permit' // plain text body
-                };
+            // checkValidPermits.then(function (found) {
+            //
+            // }).then(function (notfound) {
+            //
+            // }).then(function(done){
+            //
+            //     var insertIntoDB = new Promise((resolve, reject) => {
+            //         connection.query('INSERT INTO car_data (car_reg, date, valid_permit, x_coord, y_coord) VALUES (?,?,?,?,?)', [car_reg, date, valid_permit, x_coord, y_coord], function (err, result) {
+            //             if (err) {
+            //                 reject(err);
+            //             }
+            //             else{
+            //
+            //                 var mailOptions = {
+            //                     from: 'alex.fyp2018@gmail.com', // sender address
+            //                     to: 'abcbogdan11@gmail.com', // list of receivers
+            //                     subject: 'Car park updates', // Subject line
+            //                     html: 'Car withe the reg ' + car_reg + ' was found in the car park at ' + date + ' without a valid parking permit' // plain text body
+            //                 };
+            //
+            //                 transporter.sendMail(mailOptions, function (mailerr, info) {
+            //                     if (mailerr)
+            //                         console.log(mailerr);
+            //                 });
+            //
+            //                 resolve("sucess");
+            //             }
+            //         });
+            //     });
+            // });
 
-                transporter.sendMail(mailOptions, function (mailerr, info) {
-                    if (mailerr)
-                        console.log(mailerr);
-                });
+
+        const promise = doSomething();
+
+        doSomething().then(function (result) {
+            connection.query('SELECT * FROM valid_permits', function (error, results, fields) {
+                for (var i = 0; i < results.length; i++) {
+                    if (results[i].car_reg === car_data.car_reg) {
+                        car_data.valid_permit='true';
+                    }
+                }
             });
-            connection.query('SELECT * FROM car_data ORDER BY id DESC', function (error, car_results, fields) {
-                res.render('index', {car_data: car_results});
-            });
-        });
+            return doSomethingElse(valid_permit);
+            })
+            .then(function (newResult) {
+                //new result is valid permit
+                if(car_data.car_reg.match(regex)){
+                    var nctDataPromise=getNctData(car_data.car_reg);
+                    nctDataPromise.then(function (nct){
+                        car_data.nct=nct;
+                    });
+                }
+                return doThirdThing(newResult);
+            })
+            .then(function (finalResult) {
+
+                connection.query('INSERT INTO car_data (car_reg, date, valid_permit, x_coord, y_coord, nct) VALUES (?,?,?,?,?,?)', [car_data.car_reg, car_data.date, car_data.valid_permit, car_data.x_coord, car_data.y_coord, car_data.nct], function (err, result) {});
+
+                if(car_data.valid_permit==='false'){
+                    var mailOptions = {
+                        from: 'alex.fyp2018@gmail.com', // sender address
+                        to: 'abcbogdan11@gmail.com', // list of receivers
+                        subject: 'Car park updates', // Subject line
+                        html: 'Car withe the reg ' + car_data.car_reg + ' was found in the car park at ' + car_data.date + ' without a valid parking permit' // plain text body
+                    };
+                    transporter.sendMail(mailOptions, function (mailerr, info) {
+                        if (mailerr)
+                            console.log(mailerr);
+                    });
+                }
+                res.end();
+                console.log('Got the final result: ' + finalResult);
+            })
+            .catch(failureCallback);
+
+
+            // connection.query('SELECT * FROM car_data ORDER BY id DESC', function (error, car_results, fields) {
+            //     // res.render('index', {car_data: car_results});
+            // });
+
     }
     else {
         connection.query('SELECT * FROM car_data ORDER BY id DESC', function (error, car_results, fields) {
-            res.render('index', {car_data: car_results});
+            // res.render('index', {car_data: car_results});
+            res.end();
+
         });
     }
 });
@@ -111,8 +169,8 @@ router.post('/', function (req, res, next) {
 
 
 function getNctData(plate) {
-    return promise1 = new Promise((resolve, reject) => {
-        let pyshell = new PythonShell('/home/alexander11/fyp/checkNct.py', {pythonPath: '/usr/bin/python'});
+    return NctPromise = new Promise((resolve, reject) => {
+        let pyshell = new PythonShell('../fyp/checkNct.py', {pythonPath: '/usr/bin/python'});
         pyshell.send(plate);
         var new_plate;
 
