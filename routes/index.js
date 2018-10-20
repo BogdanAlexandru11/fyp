@@ -4,6 +4,9 @@ var mysql = require('mysql');
 var moment = require('moment');
 var Promise = require('promise');
 var nodemailer = require('nodemailer');
+// import {PythonShell} from 'python-shell';
+let {PythonShell} = require('python-shell');
+
 
 var connection = mysql.createConnection({
     host     : 'localhost',
@@ -23,6 +26,22 @@ var transporter = nodemailer.createTransport({
 /* GET home page. */
 router.get('/', function(req, res, next) {
     connection.query('SELECT * FROM car_data ORDER BY id DESC', function (error, results, fields) {
+
+        let pyshell = new PythonShell('/home/alexander11/nctCheck.py', { pythonPath :'/usr/bin/python'});
+
+        pyshell.send('07oy2033');
+        pyshell.on('message', function (message) {
+            console.log(message);
+        });
+
+        pyshell.end(function (err,code,signal) {
+            if (err) throw err;
+            console.log('The exit code was: ' + code);
+            console.log('The exit signal was: ' + signal);
+            console.log('finished');
+        });
+
+
         res.render('index', { car_data : results });
     });
 });
