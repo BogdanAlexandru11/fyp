@@ -5,6 +5,7 @@ from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.support import expected_conditions as expected
 from selenium.webdriver.support.wait import WebDriverWait
 import time
+
 text = raw_input()
 if __name__ == "__main__":
     options = Options()
@@ -16,8 +17,8 @@ if __name__ == "__main__":
     nctInput=driver.find_element_by_xpath("//input[@name='RegistrationID']")
     nctInput.clear()
     nctInput.send_keys(text+ Keys.ENTER )
-    time.sleep(1)
+    WebDriverWait(driver, 10).until(expected.presence_of_element_located((By.ID, "confirmVehicleYes")))
     driver.find_element_by_xpath("//input[@id='confirmVehicleYes']").send_keys(Keys.ENTER)
-    time.sleep(1)
+    WebDriverWait(driver, 10).until(expected.presence_of_element_located((By.ID, "tab3")))
     print (driver.find_element_by_xpath('//*[@id="tab3"]/form[1]/div[2]/div[1]/div[1]/table/tbody/tr[1]/td').text)
     driver.quit()
