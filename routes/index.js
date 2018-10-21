@@ -69,8 +69,8 @@ router.post('/', function (req, res, next) {
 
         res.end();
         var car_data = {
-            // car_reg: req.body.best_plate.plate,
-            car_reg: '12cw1484',
+            car_reg: req.body.best_plate.plate,
+            // car_reg: '12cw1484',
             date: moment().format('MMMM Do YYYY, h:mm:ss a'),
             x_coord: '"N/A"',
             y_coord: '"N/A"',
@@ -103,7 +103,9 @@ router.post('/', function (req, res, next) {
                     //TODO fix this, timing + too many connections, maybe create a pool?
                     console.log("matches regex");
                     console.log("i got in promise");
-                    let pyshell = new PythonShell('../fyp/checkNct.py', {pythonPath: '/usr/bin/python'});
+                    ///opt/live/my-first-app
+                    let pyshell = new PythonShell('/opt/live/my-first-app/fyp/checkNct.py', {pythonPath: '/usr/bin/python'});
+                    // let pyshell = new PythonShell('../fyp/checkNct.py', {pythonPath: '/usr/bin/python'});
                     pyshell.send(car_data.car_reg);
                     log("just sent the plate to the script");
 
