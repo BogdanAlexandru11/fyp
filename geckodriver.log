@@ -2703,3 +2703,88 @@
 1540132828393	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://www.ncts.ie/1263
 1540132828553	Marionette	INFO	Stopped listening on port 35355
 1540132830164	Marionette	INFO	Stopped listening on port 39487
+1540133968825	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.TP6Oky26uNr1"
+*** You are running in headless mode.
+1540133970564	Marionette	INFO	Listening on port 38557
+1540133970634	Marionette	WARN	TLS certificate errors will be ignored for this session
+1540133970680	Marionette	DEBUG	[2147483649] Frame script loaded
+1540133970686	Marionette	DEBUG	[2147483649] Frame script registered
+1540133970727	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1540133970917	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1540133972013	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://www.ncts.ie/1263
+1540133973172	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://www.ncts.ie/1263
+1540133973408	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1540133973416	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for https://www.ncts.ie/1263
+1540133973513	Marionette	DEBUG	[2147483649] Received DOM event pagehide for https://www.ncts.ie/1263
+1540133973514	Marionette	DEBUG	[2147483649] Received DOM event unload for https://www.ncts.ie/1263
+1540133973827	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://www.ncts.ie/1263
+1540133974721	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://www.ncts.ie/1263
+1540133975905	Marionette	INFO	Stopped listening on port 38557
+1540133990963	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.fN941KlEzlar"
+*** You are running in headless mode.
+1540133992284	Marionette	INFO	Listening on port 35553
+1540133992369	Marionette	WARN	TLS certificate errors will be ignored for this session
+1540133992417	Marionette	DEBUG	[2147483649] Frame script loaded
+1540133992423	Marionette	DEBUG	[2147483649] Frame script registered
+1540133992449	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1540133992598	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1540133992990	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://www.ncts.ie/1263
+1540133993785	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://www.ncts.ie/1263
+1540133994026	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1540133994033	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for https://www.ncts.ie/1263
+1540133994130	Marionette	DEBUG	[2147483649] Received DOM event pagehide for https://www.ncts.ie/1263
+1540133994130	Marionette	DEBUG	[2147483649] Received DOM event unload for https://www.ncts.ie/1263
+1540133994520	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://www.ncts.ie/1263
+1540133995005	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://www.ncts.ie/1263
+1540133996180	Marionette	INFO	Stopped listening on port 35553
+1540134007720	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.cRdEyLHqnni6"
+*** You are running in headless mode.
+1540134009021	Marionette	INFO	Listening on port 37041
+1540134009034	Marionette	WARN	TLS certificate errors will be ignored for this session
+1540134009081	Marionette	DEBUG	[2147483649] Frame script loaded
+1540134009089	Marionette	DEBUG	[2147483649] Frame script registered
+1540134009117	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1540134009280	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1540134012059	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://www.ncts.ie/1263
+1540134012654	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://www.ncts.ie/1263
+1540134012888	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1540134012897	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for https://www.ncts.ie/1263
+1540134012993	Marionette	DEBUG	[2147483649] Received DOM event pagehide for https://www.ncts.ie/1263
+1540134012994	Marionette	DEBUG	[2147483649] Received DOM event unload for https://www.ncts.ie/1263
+1540134013306	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://www.ncts.ie/1263
+1540134013583	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://www.ncts.ie/1263
+1540134014742	Marionette	INFO	Stopped listening on port 37041
+1540134019116	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.qRGW2Ww4jyAv"
+*** You are running in headless mode.
+1540134020504	Marionette	INFO	Listening on port 38407
+1540134020535	Marionette	WARN	TLS certificate errors will be ignored for this session
+1540134020584	Marionette	DEBUG	[2147483649] Frame script loaded
+1540134020591	Marionette	DEBUG	[2147483649] Frame script registered
+1540134020612	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1540134020812	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1540134021742	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://www.ncts.ie/1263
+1540134021921	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://www.ncts.ie/1263
+1540134022167	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1540134022174	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for https://www.ncts.ie/1263
+1540134022274	Marionette	DEBUG	[2147483649] Received DOM event pagehide for https://www.ncts.ie/1263
+1540134022274	Marionette	DEBUG	[2147483649] Received DOM event unload for https://www.ncts.ie/1263
+1540134022648	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://www.ncts.ie/1263
+1540134022784	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://www.ncts.ie/1263
+1540134023977	Marionette	INFO	Stopped listening on port 38407
+1540134435600	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.wvq9XeEjuEbK"
+*** You are running in headless mode.
+1540134437304	Marionette	INFO	Listening on port 44617
+1540134437414	Marionette	WARN	TLS certificate errors will be ignored for this session
+1540134437464	Marionette	DEBUG	[2147483649] Frame script loaded
+1540134437465	Marionette	DEBUG	[2147483649] Frame script registered
+1540134437488	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1540134437758	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1540134438541	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://www.ncts.ie/1263
+1540134439451	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://www.ncts.ie/1263
+1540134439692	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1540134439699	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for https://www.ncts.ie/1263
+1540134440008	Marionette	DEBUG	[2147483649] Received DOM event pagehide for https://www.ncts.ie/1263
+1540134440009	Marionette	DEBUG	[2147483649] Received DOM event unload for https://www.ncts.ie/1263
+1540134440648	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://www.ncts.ie/1263
+1540134440935	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://www.ncts.ie/1263
+1540134443123	Marionette	INFO	Stopped listening on port 44617
