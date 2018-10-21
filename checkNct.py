@@ -4,6 +4,8 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.support import expected_conditions as expected
 from selenium.webdriver.support.wait import WebDriverWait
+from selenium.common.exceptions import TimeoutException
+
 import time
 
 text = raw_input()
@@ -23,6 +25,7 @@ if __name__ == "__main__":
         WebDriverWait(driver, 10).until(expected.presence_of_element_located((By.ID, "tab3")))
         print (driver.find_element_by_xpath('//*[@id="tab3"]/form[1]/div[2]/div[1]/div[1]/table/tbody/tr[1]/td').text)
     except TimeoutException as ex:
+        print 'notfound'
         isrunning = 0
         driver.quit()
     driver.quit()

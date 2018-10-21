@@ -61,8 +61,8 @@ router.post('/', function (req, res, next) {
     log("i got in the post req");
 
 
-    var regex = /\d{2,3}[a-zA-Z]{1,2}\d{1,6}/;
-
+    // var regex = /\d{2,3}[(CW)]\d{1,6}/;
+    var regex =/\d{1,3}(KK|kk|ww|WW|c|C|ce|CE|cn|CN|cw|CW|d|D|dl|DL|g|G|ke|KE|ky|KY|l|L|ld|LD|lh|LH|lk|LK|lm|LM|ls|LS|mh|MH|mn|MN|mo|MO|oy|OY|so|SO|rn|RN|tn|TN|ts|TS|w|W|wd|WD|wh|WH|wx|WX)\d{1,6}/;
     //change this to the sender lol
     if (true) {
         log("true statement");
@@ -70,10 +70,10 @@ router.post('/', function (req, res, next) {
         res.end();
         var car_data = {
             car_reg: req.body.best_plate.plate,
-            // car_reg: '12cw1484',
+            // car_reg: 'dasdasd2312',
             date: moment().format('MMMM Do YYYY, h:mm:ss a'),
-            x_coord: '"N/A"',
-            y_coord: '"N/A"',
+            x_coord: 'N/A',
+            y_coord: 'N/A',
             valid_permit: 'false',
             nct: ''
         };
@@ -97,15 +97,16 @@ router.post('/', function (req, res, next) {
                         }
                     }
                 });
-                if (car_data.car_reg.match(regex)) {
+                log(car_data.car_reg.toUpperCase());
+                if (car_data.car_reg.toUpperCase().match(regex)) {
                     log("car data matches regex");
 
                     //TODO fix this, timing + too many connections, maybe create a pool?
                     console.log("matches regex");
                     console.log("i got in promise");
                     ///opt/live/my-first-app
-                    let pyshell = new PythonShell('/opt/live/my-first-app/fyp/checkNct.py', {pythonPath: '/usr/bin/python'});
-                    // let pyshell = new PythonShell('../fyp/checkNct.py', {pythonPath: '/usr/bin/python'});
+                    // let pyshell = new PythonShell('/opt/live/my-first-app/checkNct.py', {pythonPath: '/usr/bin/python'});
+                    let pyshell = new PythonShell('../fyp/checkNct.py', {pythonPath: '/usr/bin/python'});
                     pyshell.send(car_data.car_reg);
                     log("just sent the plate to the script");
 
@@ -115,9 +116,12 @@ router.post('/', function (req, res, next) {
                         // console.log("message " + message);
                         car_data.nct = message;
                         log("got data from the script " + message);
-
                         resolve(message);
                     });
+                }
+                else{
+                    car_data.nct='Not applicable';
+                    resolve('message');
                 }
             });
         }
@@ -127,7 +131,8 @@ router.post('/', function (req, res, next) {
             log("async call func");
 
             var result = await resolveAfter2Seconds();
-            console.log(result);
+            log("just after async call");
+            log("result after async " +result);
             connection.query('INSERT INTO car_data (car_reg, date, valid_permit, x_coord, y_coord, nct) VALUES (?,?,?,?,?,?)', [car_data.car_reg, car_data.date, car_data.valid_permit, car_data.x_coord, car_data.y_coord, car_data.nct], function (err, result) {
                 log("inserted data");
 

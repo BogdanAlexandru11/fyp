@@ -28,3 +28,6 @@ insert into car_data(car_reg) values('123');
 
 ALTER TABLE car_data ADD nct varchar(255);
 
+
+
+kill -9 $(ps aux | grep 'firefox' | grep -v 'grep' | awk '{print $2}')
