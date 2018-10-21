@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="99c70e4c-a337-497a-8956-ab451ba54fd9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/checkNct.py" beforeDir="false" afterPath="$PROJECT_DIR$/checkNct.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/geckodriver.log" beforeDir="false" afterPath="$PROJECT_DIR$/geckodriver.log" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -55,6 +56,7 @@
           <entry key="js" value="5014" />
           <entry key="json" value="2" />
           <entry key="pug" value="186" />
+          <entry key="py" value="46" />
           <entry key="txt" value="107" />
         </counts>
       </usages-collector>
@@ -64,7 +66,7 @@
           <entry key="JSON" value="2" />
           <entry key="Jade" value="186" />
           <entry key="JavaScript" value="5014" />
-          <entry key="PLAIN_TEXT" value="112" />
+          <entry key="PLAIN_TEXT" value="158" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.js.language.service.starts">
@@ -85,20 +87,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/checkNct.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="24" selection-start-line="24" selection-end-line="24" />
+            <state relative-caret-position="390">
+              <caret line="26" column="21" selection-start-line="26" selection-start-column="21" selection-end-line="26" selection-end-column="21" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="72" column="32" lean-forward="true" selection-start-line="72" selection-start-column="32" selection-end-line="72" selection-end-column="32" />
+            <state relative-caret-position="299">
+              <caret line="106" column="77" selection-start-line="106" selection-start-column="74" selection-end-line="106" selection-end-column="77" />
             </state>
           </provider>
         </entry>
@@ -174,6 +176,7 @@
       <find>message</find>
       <find>moment</find>
       <find>err</find>
+      <find>ju</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -186,11 +189,11 @@
         <option value="$PROJECT_DIR$/public/stylesheets/style.css" />
         <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/checkNct.py" />
         <option value="$PROJECT_DIR$/database_info.txt" />
         <option value="$PROJECT_DIR$/views/index.pug" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/routes/index.js" />
+        <option value="$PROJECT_DIR$/checkNct.py" />
       </list>
     </option>
   </component>
@@ -211,9 +214,9 @@
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-56" />
-    <option name="y" value="274" />
-    <option name="width" value="1890" />
+    <option name="x" value="-25" />
+    <option name="y" value="298" />
+    <option name="width" value="1880" />
     <option name="height" value="741" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -294,18 +297,18 @@
       <workItem from="1539899707922" duration="3942000" />
       <workItem from="1539944251929" duration="419000" />
       <workItem from="1540051708696" duration="16583000" />
-      <workItem from="1540132418482" duration="2446000" />
+      <workItem from="1540132418482" duration="3527000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="30726000" />
+    <option name="totallyTimeSpent" value="31807000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-2" width="1920" height="1017" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21454929" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21454929" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -319,7 +322,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" weight="0.32919955" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.2660654" />
+      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.2660654" />
       <window_info anchor="bottom" id="TypeScript" order="11" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -358,13 +361,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
           <caret line="28" column="7" selection-start-line="28" selection-end-line="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/checkNct.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" selection-start-line="24" selection-end-line="24" />
         </state>
       </provider>
     </entry>
@@ -415,8 +411,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="72" column="32" lean-forward="true" selection-start-line="72" selection-start-column="32" selection-end-line="72" selection-end-column="32" />
+        <state relative-caret-position="299">
+          <caret line="106" column="77" selection-start-line="106" selection-start-column="74" selection-end-line="106" selection-end-column="77" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/checkNct.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="26" column="21" selection-start-line="26" selection-start-column="21" selection-end-line="26" selection-end-column="21" />
         </state>
       </provider>
     </entry>
