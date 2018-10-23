@@ -34,38 +34,12 @@ var transporter = nodemailer.createTransport({
 router.get('/', function (req, res, next) {
     log.info();
     connection.query('SELECT * FROM car_data ORDER BY id DESC', function (error, results, fields) {
-
-        // new Promise(function(resolve, reject) {
-        //
-        //     resolve(1); // (*)
-        //
-        // }).then(function(result) { // (**)
-        //
-        //     console.log(result); // 1
-        //     return 2;
-        //
-        // }).then(function(result) { // (***)
-        //
-        //     console.log(result); // 2
-        //     return 3;
-        //
-        // }).then(function(result) {
-        //
-        //     console.log(result); // 4
-        //     return 4;
-        // });
-
-
         res.render('index', {car_data: results});
-
-
     });
 });
 
 router.post('/', function (req, res, next) {
     log("i got in the post req");
-
-
     // var regex = /\d{2,3}[(CW)]\d{1,6}/;
     var regex =/\d{1,3}(KK|kk|ww|WW|c|C|ce|CE|cn|CN|cw|CW|d|D|dl|DL|g|G|ke|KE|ky|KY|l|L|ld|LD|lh|LH|lk|LK|lm|LM|ls|LS|mh|MH|mn|MN|mo|MO|oy|OY|so|SO|rn|RN|tn|TN|ts|TS|w|W|wd|WD|wh|WH|wx|WX)\d{1,6}/;
     //change this to the sender lol
@@ -87,7 +61,7 @@ router.post('/', function (req, res, next) {
         }
         else{
             var car_data = {
-                car_reg: req.body.best_plate.plate,
+                car_reg: '07D78411',
                 date: moment().format('MMMM Do YYYY, h:mm:ss a'),
                 x_coord: 'N/A',
                 y_coord: 'N/A',
@@ -96,14 +70,10 @@ router.post('/', function (req, res, next) {
             };
         }
 
-
         function resolveAfter2Seconds() {
             log("resolve after 2 sec promise");
-
             return new Promise(resolve => {
                 log("resolve after 2 sec promise - inside promise");
-
-
                 connection.query('SELECT * FROM valid_permits', function (error, results, fields) {
                     log("cquery select * from val perm");
                     for (var i = 0; i < results.length; i++) {
@@ -186,27 +156,6 @@ router.post('/', function (req, res, next) {
     }
 });
 
-
-function getNctData(plate) {
-    console.log("i got in getnct");
-    return NctPromise = new Promise((resolve, reject) => {
-        console.log("i got in promise");
-        let pyshell = new PythonShell('/opt/live/my-first-app/checkNct.py', {pythonPath: '/usr/bin/python'});
-        // let pyshell = new PythonShell('../fyp/checkNct.py', {pythonPath: '/usr/bin/python'});
-        pyshell.send(plate);
-        var new_plate;
-        pyshell.on('message', function (message) {
-            console.log("message " + message);
-            new_plate = message;
-            resolve(message);
-        });
-        pyshell.end(function (err, code, signal) {
-            if (err) {
-                reject(err);
-            }
-        });
-    });
-}
 
 
 module.exports = router;
