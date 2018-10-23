@@ -39,6 +39,10 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/', function (req, res, next) {
+    console.log("REQFROMOPENALPR");
+    console.log(req);
+    console.log("REQFROMOPENALPR")
+    
     log("i got in the post req");
     // var regex = /\d{2,3}[(CW)]\d{1,6}/;
     var regex =/\d{1,3}(KK|kk|ww|WW|c|C|ce|CE|cn|CN|cw|CW|d|D|dl|DL|g|G|ke|KE|ky|KY|l|L|ld|LD|lh|LH|lk|LK|lm|LM|ls|LS|mh|MH|mn|MN|mo|MO|oy|OY|so|SO|rn|RN|tn|TN|ts|TS|w|W|wd|WD|wh|WH|wx|WX)\d{1,6}/;
