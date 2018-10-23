@@ -41,15 +41,19 @@ router.get('/', function (req, res, next) {
 router.post('/', function (req, res, next) {
     console.log("REQFROMOPENALPR");
     console.log(req.body);
-    console.log("REQFROMOPENALPR")
-
+    console.log("REQFROMOPENALPR");
+    log("just ended res");
+    res.end();
     log("i got in the post req");
     // var regex = /\d{2,3}[(CW)]\d{1,6}/;
     var regex =/\d{1,3}(KK|kk|ww|WW|c|C|ce|CE|cn|CN|cw|CW|d|D|dl|DL|g|G|ke|KE|ky|KY|l|L|ld|LD|lh|LH|lk|LK|lm|LM|ls|LS|mh|MH|mn|MN|mo|MO|oy|OY|so|SO|rn|RN|tn|TN|ts|TS|w|W|wd|WD|wh|WH|wx|WX)\d{1,6}/;
     //change this to the sender lol
     if (req.body.agent_type==='alprd' || req.body.debug==='fyp_true') {
+        log("alpr and debug mode true");
+
         res.end();
         if (localEnv==='true'){
+            log("local env true");
             var car_data = {
                 car_reg: '12cw1484',
                 date: moment().format('MMMM Do YYYY, h:mm:ss a'),
@@ -60,7 +64,9 @@ router.post('/', function (req, res, next) {
             };
         }
         else{
+            log("local env false");
             if(req.body.debug==='fyp_true'){
+                log("debug mode on");
                 var car_data = {
                     car_reg: '07D78411',
                     date: moment().format('MMMM Do YYYY, h:mm:ss a'),
@@ -71,6 +77,7 @@ router.post('/', function (req, res, next) {
                 };
             }
             else{
+                log(" live feed from the drone ");
                 var car_data = {
                     car_reg: req.body.best_plate.plate,
                     date: moment().format('MMMM Do YYYY, h:mm:ss a'),
