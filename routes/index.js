@@ -40,21 +40,17 @@ router.get('/', function (req, res, next) {
 
 router.post('/', function (req, res, next) {
     console.log("REQFROMOPENALPR");
-    console.log(req);
+    console.log(req.body);
     console.log("REQFROMOPENALPR")
-    
+
     log("i got in the post req");
     // var regex = /\d{2,3}[(CW)]\d{1,6}/;
     var regex =/\d{1,3}(KK|kk|ww|WW|c|C|ce|CE|cn|CN|cw|CW|d|D|dl|DL|g|G|ke|KE|ky|KY|l|L|ld|LD|lh|LH|lk|LK|lm|LM|ls|LS|mh|MH|mn|MN|mo|MO|oy|OY|so|SO|rn|RN|tn|TN|ts|TS|w|W|wd|WD|wh|WH|wx|WX)\d{1,6}/;
     //change this to the sender lol
-    if (true) {
-        log("true statement");
-
+    if (req.body.agent_type==='alprd' || req.body.debug==='fyp_true') {
         res.end();
-
         if (localEnv==='true'){
             var car_data = {
-                // car_reg: req.body.best_plate.plate,
                 car_reg: '12cw1484',
                 date: moment().format('MMMM Do YYYY, h:mm:ss a'),
                 x_coord: 'N/A',
@@ -64,14 +60,26 @@ router.post('/', function (req, res, next) {
             };
         }
         else{
-            var car_data = {
-                car_reg: '07D78411',
-                date: moment().format('MMMM Do YYYY, h:mm:ss a'),
-                x_coord: 'N/A',
-                y_coord: 'N/A',
-                valid_permit: 'false',
-                nct: ''
-            };
+            if(req.body.debug==='fyp_true'){
+                var car_data = {
+                    car_reg: '07D78411',
+                    date: moment().format('MMMM Do YYYY, h:mm:ss a'),
+                    x_coord: 'N/A',
+                    y_coord: 'N/A',
+                    valid_permit: 'false',
+                    nct: ''
+                };
+            }
+            else{
+                var car_data = {
+                    car_reg: req.body.best_plate.plate,
+                    date: moment().format('MMMM Do YYYY, h:mm:ss a'),
+                    x_coord: 'N/A',
+                    y_coord: 'N/A',
+                    valid_permit: 'false',
+                    nct: ''
+                };
+            }
         }
 
         function resolveAfter2Seconds() {
