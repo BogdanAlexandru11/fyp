@@ -10,17 +10,21 @@ const debug = require('debug')('my-namespace')
 const name = 'my-app'
 debug('booting %s', name);
 require('dotenv').config()
+var session = require('express-session');
+let hour = 3600000;
 
+
+router.use(session({secret: 'alex_fyp_2018', resave: false, saveUninitialized: true,}));
 
 var localEnv=process.env.LOCALENV;
 
 
 
 var connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'fyp_user',
-    password: 'fyp_password@my123!',
-    database: 'fyp'
+    host: process.env.dbhost,
+    user: process.env.dbuser,
+    password: process.env.dbpw,
+    database: process.env.dbdb
 });
 var transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -32,19 +36,21 @@ var transporter = nodemailer.createTransport({
 
 
 router.get('/', function (req, res, next) {
-    log.info();
-    connection.query('SELECT * FROM car_data ORDER BY id DESC', function (error, results, fields) {
-        res.render('index', {car_data: results});
-    });
+    if(req.session.user){
+        connection.query('SELECT * FROM car_data ORDER BY id DESC', function (error, results, fields) {
+            console.log(req.session);
+            res.render('index', {car_data: results});
+        });
+    }
+    else{
+        res.render('homepage');
+    }
 });
 
 router.post('/', function (req, res, next) {
-    console.log("REQFROMOPENALPR");
     console.log(req.body);
-    console.log("REQFROMOPENALPR");
-    log("just ended res");
     res.end();
-    log("i got in the post req");
+    log("res just ended");
     // var regex = /\d{2,3}[(CW)]\d{1,6}/;
     var regex =/\d{1,3}(KK|kk|ww|WW|c|C|ce|CE|cn|CN|cw|CW|d|D|dl|DL|g|G|ke|KE|ky|KY|l|L|ld|LD|lh|LH|lk|LK|lm|LM|ls|LS|mh|MH|mn|MN|mo|MO|oy|OY|so|SO|rn|RN|tn|TN|ts|TS|w|W|wd|WD|wh|WH|wx|WX)\d{1,6}/;
     //change this to the sender lol
@@ -173,6 +179,23 @@ router.post('/', function (req, res, next) {
         }
         asyncCall();
     }
+});
+
+router.post('/login', function (req, res, next) {
+    if(req.body.inputText==='fyp2018'){
+        req.session.user='true';
+        req.session.cookie.expires = new Date(Date.now() + hour);
+        req.session.cookie.maxAge = hour;
+        res.redirect('/');
+    }
+    else{
+        res.redirect('/');
+    }
+});
+
+router.post('/logout', function (req, res, next) {
+    req.session.user = null;
+    res.redirect('/');
 });
 
 
