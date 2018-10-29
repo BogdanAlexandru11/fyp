@@ -15,7 +15,7 @@ const slowDown = require("express-slow-down");
 const postRequestsToNCT = slowDown({
     windowMs: 15 * 60 * 1000, // 15 minutes
     delayAfter: 1, // allow 5 requests to go at full-speed, then...
-    delayMs: 500 // 6th request has a 100ms delay, 7th has a 200ms delay, 8th gets 300ms, etc.
+    delayMs: 1000 // 6th request has a 100ms delay, 7th has a 200ms delay, 8th gets 300ms, etc.
 });
 let hour = 3600000;
 
@@ -53,7 +53,7 @@ router.get('/', function (req, res, next) {
     }
 });
 
-router.post('/', postRequestsToNCT, function (req, res, next) {
+router.post('/', function (req, res, next) {
     console.log(req.body);
     res.end();
     log("res just ended");
@@ -138,16 +138,17 @@ router.post('/', postRequestsToNCT, function (req, res, next) {
                     }
                     else{
                         let pyshell = new PythonShell('/opt/live/my-first-app/checkNct.py', {pythonPath: '/usr/bin/python'});
-                        // postRequestsToNCT;
-                        pyshell.send(car_data.car_reg);
-                        log("just sent the plate to the script");
-                        pyshell.on('message', function (message) {
 
-                            // console.log("message " + message);
-                            car_data.nct = message;
-                            log("got data from the script " + message);
-                            resolve(message);
-                        });
+                        setTimeout(function () {
+                            pyshell.send(car_data.car_reg);
+                            log("just sent the plate to the script");
+                            pyshell.on('message', function (message) {
+                                // console.log("message " + message);
+                                car_data.nct = message;
+                                log("got data from the script " + message);
+                                resolve(message);
+                            });
+                        }, 1000);
                     }
                 }
                 else{
