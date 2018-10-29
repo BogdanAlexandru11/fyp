@@ -12,6 +12,8 @@ debug('booting %s', name);
 require('dotenv').config()
 var session = require('express-session');
 const slowDown = require("express-slow-down");
+var lastRequestTime=new Date();
+var timeDelay=1000;
 const postRequestsToNCT = slowDown({
     windowMs: 15 * 60 * 1000, // 15 minutes
     delayAfter: 1, // allow 5 requests to go at full-speed, then...
@@ -118,37 +120,58 @@ router.post('/', function (req, res, next) {
                 });
                 log(car_data.car_reg.toUpperCase());
                 if (car_data.car_reg.toUpperCase().match(regex)) {
-                    log("car data matches regex");
-
-                    //TODO fix this, timing + too many connections, maybe create a pool?
-                    console.log("matches regex");
-                    console.log("i got in promise");
-
+                    var thisRequestTime=new Date();
                     if(localEnv==='true'){
                         let pyshell = new PythonShell('../fyp/checkNct.py', {pythonPath: '/usr/bin/python'});
-                        pyshell.send(car_data.car_reg);
+                        if(thisRequestTime.getTime() - lastRequestTime.getTime() > 20000){
+                            log("delay in first if " + timeDelay);
+                            timeDelay=1000;
+                        }
+                        if(thisRequestTime.getTime() - lastRequestTime.getTime() > 2000){
+                            log("delay in second if " + timeDelay);
+                            lastRequestTime=new Date();
+                            pyshell.send(car_data.car_reg);
+                        }
+                        else{
+                            timeDelay=timeDelay+1000;
+                            log("delay in else " + timeDelay);
+                            setTimeout(function () {
+                                pyshell.send(car_data.car_reg);
+                                lastRequestTime=new Date();
+                            }, timeDelay);
+                        }
                         log("just sent the plate to the script");
                         pyshell.on('message', function (message) {
-
                             // console.log("message " + message);
                             car_data.nct = message;
-                            log("got data from the script " + message);
                             resolve(message);
                         });
                     }
                     else{
                         let pyshell = new PythonShell('/opt/live/my-first-app/checkNct.py', {pythonPath: '/usr/bin/python'});
-
-                        setTimeout(function () {
+                        if(thisRequestTime.getTime() - lastRequestTime.getTime() > 20000){
+                            log("delay in first if " + timeDelay);
+                            timeDelay=1000;
+                        }
+                        if(thisRequestTime.getTime() - lastRequestTime.getTime() > 2000){
+                            log("delay in second if " + timeDelay);
+                            lastRequestTime=new Date();
                             pyshell.send(car_data.car_reg);
-                            log("just sent the plate to the script");
-                            pyshell.on('message', function (message) {
-                                // console.log("message " + message);
-                                car_data.nct = message;
-                                log("got data from the script " + message);
-                                resolve(message);
-                            });
-                        }, 1000);
+                        }
+                        else{
+                            timeDelay=timeDelay+1000;
+                            log("delay in else " + timeDelay);
+                            setTimeout(function () {
+                                pyshell.send(car_data.car_reg);
+                                lastRequestTime=new Date();
+                            }, timeDelay);
+                        }
+                        log("just sent the plate to the script");
+                        pyshell.on('message', function (message) {
+                            // console.log("message " + message);
+                            car_data.nct = message;
+                            resolve(message);
+                        });
                     }
                 }
                 else{
