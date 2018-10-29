@@ -11,6 +11,12 @@ const name = 'my-app'
 debug('booting %s', name);
 require('dotenv').config()
 var session = require('express-session');
+const slowDown = require("express-slow-down");
+const postRequestsToNCT = slowDown({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    delayAfter: 1, // allow 5 requests to go at full-speed, then...
+    delayMs: 500 // 6th request has a 100ms delay, 7th has a 200ms delay, 8th gets 300ms, etc.
+});
 let hour = 3600000;
 
 
@@ -47,7 +53,7 @@ router.get('/', function (req, res, next) {
     }
 });
 
-router.post('/', function (req, res, next) {
+router.post('/', postRequestsToNCT, function (req, res, next) {
     console.log(req.body);
     res.end();
     log("res just ended");
@@ -132,6 +138,7 @@ router.post('/', function (req, res, next) {
                     }
                     else{
                         let pyshell = new PythonShell('/opt/live/my-first-app/checkNct.py', {pythonPath: '/usr/bin/python'});
+                        // postRequestsToNCT;
                         pyshell.send(car_data.car_reg);
                         log("just sent the plate to the script");
                         pyshell.on('message', function (message) {
