@@ -29,8 +29,8 @@ var connection = mysql.createConnection({
 var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'alex.fyp2018@gmail.com',
-        pass: 'Password123!@#'
+        user: process.env.emailuser,
+        pass: process.env.emailpw
     }
 });
 
@@ -38,6 +38,7 @@ var transporter = nodemailer.createTransport({
 router.get('/', function (req, res, next) {
     if(req.session.user){
         connection.query('SELECT * FROM car_data ORDER BY id DESC', function (error, results, fields) {
+            log("GET /");
             res.render('index', {car_data: results});
         });
     }
@@ -48,165 +49,12 @@ router.get('/', function (req, res, next) {
 
 router.post('/', function (req, res, next) {
     res.end();
-    log("res just ended");
-    // var regex = /\d{2,3}[(CW)]\d{1,6}/;
-    var regex =/\d{1,3}(KK|kk|ww|WW|c|C|ce|CE|cn|CN|cw|CW|d|D|dl|DL|g|G|ke|KE|ky|KY|l|L|ld|LD|lh|LH|lk|LK|lm|LM|ls|LS|mh|MH|mn|MN|mo|MO|oy|OY|so|SO|rn|RN|tn|TN|ts|TS|w|W|wd|WD|wh|WH|wx|WX)\d{1,6}/;
-    //change this to the sender lol
-    if (req.body.agent_type==='alprd' || req.body.debug==='fyp_true') {
-        log("alpr and debug mode true");
-
-        res.end();
-        if (localEnv==='true'){
-            log("local env true");
-            var car_data = {
-                car_reg: '12cw1484',
-                date: moment().format('MMMM Do YYYY, h:mm:ss a'),
-                x_coord: 'N/A',
-                y_coord: 'N/A',
-                valid_permit: 'false',
-                nct: ''
-            };
-        }
-        else{
-            log("local env false");
-            if(req.body.debug==='fyp_true'){
-                log("debug mode on");
-                var car_data = {
-                    car_reg: '07D78411',
-                    date: moment().format('MMMM Do YYYY, h:mm:ss a'),
-                    x_coord: 'N/A',
-                    y_coord: 'N/A',
-                    valid_permit: 'false',
-                    nct: ''
-                };
-            }
-            else{
-                log(" live feed from the drone ");
-                var car_data = {
-                    car_reg: req.body.best_plate.plate,
-                    date: moment().format('MMMM Do YYYY, h:mm:ss a'),
-                    x_coord: 'N/A',
-                    y_coord: 'N/A',
-                    valid_permit: 'false',
-                    nct: ''
-                };
-            }
-        }
-
-        function resolveAfter2Seconds() {
-            log("resolve after 2 sec promise");
-            return new Promise(resolve => {
-                log("resolve after 2 sec promise - inside promise");
-                connection.query('SELECT * FROM valid_permits', function (error, results, fields) {
-                    log("cquery select * from val perm");
-                    for (var i = 0; i < results.length; i++) {
-                        results[i].car_reg = results[i].car_reg.replace('-', '').toUpperCase();
-                        car_data.car_reg = car_data.car_reg.toUpperCase();
-                        if (results[i].car_reg === car_data.car_reg) {
-                            car_data.valid_permit = 'true';
-                            log("found car with valid permit");
-                        }
-                    }
-                });
-                log(car_data.car_reg.toUpperCase());
-                if (car_data.car_reg.toUpperCase().match(regex)) {
-                    var thisRequestTime=new Date();
-                    if(localEnv==='true'){
-                        //localhost testing
-                        let pyshell = new PythonShell('../fyp/checkNct.py', {pythonPath: '/usr/bin/python'});
-                        if(thisRequestTime.getTime() - lastRequestTime.getTime() > 20000){
-                            log("delay in first if " + timeDelay);
-                            timeDelay=1000;
-                        }
-                        if(thisRequestTime.getTime() - lastRequestTime.getTime() > 2000){
-                            log("delay in second if " + timeDelay);
-                            lastRequestTime=new Date();
-                            pyshell.send(car_data.car_reg);
-                        }
-                        else{
-                            timeDelay=timeDelay+1000;
-                            log("delay in else " + timeDelay);
-                            setTimeout(function () {
-                                pyshell.send(car_data.car_reg);
-                                lastRequestTime=new Date();
-                            }, timeDelay);
-                        }
-                        log("just sent the plate to the script");
-                        pyshell.on('message', function (message) {
-                            // console.log("message " + message);
-                            car_data.nct = message;
-                            resolve(message);
-                        });
-
-                    }
-                    else{
-                        let pyshell = new PythonShell('/opt/live/my-first-app/checkNct.py', {pythonPath: '/usr/bin/python'});
-                        //the script that is being called on the droplet
-                        if(thisRequestTime.getTime() - lastRequestTime.getTime() > 20000){
-                            log("delay in first if " + timeDelay);
-                            timeDelay=1000;
-                        }
-                        if(thisRequestTime.getTime() - lastRequestTime.getTime() > 2000){
-                            log("delay in second if " + timeDelay);
-                            lastRequestTime=new Date();
-                            pyshell.send(car_data.car_reg);
-                        }
-                        else{
-                            timeDelay=timeDelay+1000;
-                            log("delay in else " + timeDelay);
-                            setTimeout(function () {
-                                pyshell.send(car_data.car_reg);
-                                lastRequestTime=new Date();
-                            }, timeDelay);
-                        }
-                        log("just sent the plate to the script");
-                        pyshell.on('message', function (message) {
-                            // console.log("message " + message);
-                            car_data.nct = message;
-                            resolve(message);
-                        });
-                    }
-                }
-                else{
-                    car_data.nct='Not applicable';
-                    resolve('message');
-                }
-            });
-        }
-
-
-        async function asyncCall() {
-            log("async call func");
-            var result = await resolveAfter2Seconds();
-            log("just after async call");
-            log("result after async " +result);
-            connection.query('INSERT INTO car_data (car_reg, date, valid_permit, x_coord, y_coord, nct) VALUES (?,?,?,?,?,?)', [car_data.car_reg, car_data.date, car_data.valid_permit, car_data.x_coord, car_data.y_coord, car_data.nct], function (err, result) {
-                log("inserted data");
-
-                console.log(car_data);
-                log("inserted into the db");
-            });
-            if (car_data.valid_permit === 'false') {
-                log("email sent");
-                var mailOptions = {
-                    from: 'alex.fyp2018@gmail.com', // sender address
-                    to: 'abcbogdan11@gmail.com', // list of receivers
-                    subject: 'Car park updates', // Subject line
-                    html: 'Car withe the reg ' + car_data.car_reg + ' was found in the car park at ' + car_data.date + ' without a valid parking permit' // plain text body
-                };
-                transporter.sendMail(mailOptions, function (mailerr, info) {
-                    if (mailerr)
-                        console.log(mailerr);
-                });
-            }
-            console.log("finally")
-        }
-        asyncCall();
-    }
+    log("POST /");
 });
 
 router.post('/login', function (req, res, next) {
-    if(req.body.inputText==='fyp2018'){
+    if(req.body.inputText===process.env.websitepw){
+        log("USER LOGGED IN");
         req.session.user='true';
         req.session.cookie.expires = new Date(Date.now() + hour);
         req.session.cookie.maxAge = hour;
@@ -218,9 +66,156 @@ router.post('/login', function (req, res, next) {
 });
 
 router.post('/logout', function (req, res, next) {
+    log("USER LOGGED OUT");
     req.session.user = null;
     res.redirect('/');
 });
+
+
+router.post('/alprPOST', function (req, res, next) {
+    res.end();
+    if((req._parsedUrl.query==="postedFromOpenAlprfyp2018")){
+        log("POST /alprPOST");
+        // var regex = /\d{2,3}[(CW)]\d{1,6}/;
+        var regex =/\d{1,3}(KK|kk|ww|WW|c|C|ce|CE|cn|CN|cw|CW|d|D|dl|DL|g|G|ke|KE|ky|KY|l|L|ld|LD|lh|LH|lk|LK|lm|LM|ls|LS|mh|MH|mn|MN|mo|MO|oy|OY|so|SO|rn|RN|tn|TN|ts|TS|w|W|wd|WD|wh|WH|wx|WX)\d{1,6}/;
+        //change this to the sender lol
+        if (req.body.agent_type==='alprd' || req.body.debug==='fyp_true') {
+            if (localEnv==='true'){
+                log("POST REQUEST ON LOCALHOST FROM POSTMAN");
+                var car_data = {
+                    car_reg: '12cw1484',
+                    date: moment().format('MMMM Do YYYY, h:mm:ss a'),
+                    x_coord: 'N/A',
+                    y_coord: 'N/A',
+                    valid_permit: 'false',
+                    nct: ''
+                };
+            }
+            else{
+                log("local env false");
+                if(req.body.debug==='fyp_true'){
+                    log("");
+                    var car_data = {
+                        car_reg: '07D78411',
+                        date: moment().format('MMMM Do YYYY, h:mm:ss a'),
+                        x_coord: 'N/A',
+                        y_coord: 'N/A',
+                        valid_permit: 'false',
+                        nct: ''
+                    };
+                }
+                else{
+                    log("LIVE FROM DRONE");
+                    var car_data = {
+                        car_reg: req.body.best_plate.plate,
+                        date: moment().format('MMMM Do YYYY, h:mm:ss a'),
+                        x_coord: 'N/A',
+                        y_coord: 'N/A',
+                        valid_permit: 'false',
+                        nct: ''
+                    };
+                }
+            }
+
+            function firstFunction() {
+                return new Promise(resolve => {
+                    connection.query('SELECT * FROM valid_permits', function (error, results, fields) {
+                        for (var i = 0; i < results.length; i++) {
+                            results[i].car_reg = results[i].car_reg.replace('-', '').toUpperCase();
+                            car_data.car_reg = car_data.car_reg.toUpperCase();
+                            if (results[i].car_reg === car_data.car_reg) {
+                                car_data.valid_permit = 'true';
+                                log("car with valid permit");
+                            }
+                        }
+                    });
+                    if (car_data.car_reg.toUpperCase().match(regex)) {
+                        var thisRequestTime=new Date();
+                        if(localEnv==='true'){
+                            //localhost testing
+                            let pyshell = new PythonShell('../fyp/checkNct.py', {pythonPath: '/usr/bin/python'});
+                            if(thisRequestTime.getTime() - lastRequestTime.getTime() > 20000){
+                                timeDelay=1000;
+                            }
+                            if(thisRequestTime.getTime() - lastRequestTime.getTime() > 2000){
+                                lastRequestTime=new Date();
+                                pyshell.send(car_data.car_reg);
+                            }
+                            else{
+                                timeDelay=timeDelay+1000;
+                                setTimeout(function () {
+                                    pyshell.send(car_data.car_reg);
+                                    lastRequestTime=new Date();
+                                }, timeDelay);
+                            }
+                            log("plate sent to the script");
+                            pyshell.on('message', function (message) {
+                                // console.log("message " + message);
+                                car_data.nct = message;
+                                resolve(message);
+                            });
+
+                        }
+                        else{
+                            let pyshell = new PythonShell('/opt/live/my-first-app/checkNct.py', {pythonPath: '/usr/bin/python'});
+                            //the script that is being called on the droplet
+                            if(thisRequestTime.getTime() - lastRequestTime.getTime() > 20000){
+                                timeDelay=1000;
+                            }
+                            if(thisRequestTime.getTime() - lastRequestTime.getTime() > 2000){
+                                lastRequestTime=new Date();
+                                pyshell.send(car_data.car_reg);
+                            }
+                            else{
+                                timeDelay=timeDelay+1000;
+                                setTimeout(function () {
+                                    pyshell.send(car_data.car_reg);
+                                    lastRequestTime=new Date();
+                                }, timeDelay);
+                            }
+                            log("plate sent to the script");
+                            pyshell.on('message', function (message) {
+                                car_data.nct = message;
+                                resolve(message);
+                            });
+                        }
+                    }
+                    else{
+                        car_data.nct='Non irish reg plate';
+                        resolve('message');
+                    }
+                });
+            }
+            async function secondFunction() {
+                var result = await firstFunction();
+                connection.query('INSERT INTO car_data (car_reg, date, valid_permit, x_coord, y_coord, nct) VALUES (?,?,?,?,?,?)', [car_data.car_reg, car_data.date, car_data.valid_permit, car_data.x_coord, car_data.y_coord, car_data.nct], function (err, result) {
+                    console.log(car_data);
+                    log("car_data inserted into the db");
+                });
+                if (car_data.valid_permit === 'false') {
+                    log("email sent");
+                    var mailOptions = {
+                        from: 'alex.fyp2018@gmail.com', // sender address
+                        to: 'abcbogdan11@gmail.com', // list of receivers
+                        subject: 'Car park updates', // Subject line
+                        html: 'Car withe the reg ' + car_data.car_reg + ' was found in the car park at ' + car_data.date + ' without a valid parking permit' // plain text body
+                    };
+                    transporter.sendMail(mailOptions, function (mailerr, info) {
+                        if (mailerr)
+                        {
+                            log("error sending the email");
+                            log(mailerr);
+
+                        }
+                    });
+                }
+            }
+            secondFunction();
+        }
+    }
+    res.end();
+});
+
 
 
 module.exports = router;

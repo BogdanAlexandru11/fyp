@@ -25,7 +25,7 @@ if __name__ == "__main__":
         WebDriverWait(driver, 10).until(expected.presence_of_element_located((By.ID, "tab3")))
         print (driver.find_element_by_xpath('//*[@id="tab3"]/form[1]/div[2]/div[1]/div[1]/table/tbody/tr[1]/td').text)
     except TimeoutException as ex:
-        print 'script_crashed'
+        print 'Invalid reg plate/Script crash'
         isrunning = 0
         driver.quit()
     driver.quit()
