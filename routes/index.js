@@ -11,21 +11,9 @@ const name = 'my-app'
 debug('booting %s', name);
 require('dotenv').config()
 var session = require('express-session');
-const slowDown = require("express-slow-down");
 var lastRequestTime=new Date();
-var timeDelay=2000;
-const postRequestsToNCT = slowDown({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    delayAfter: 1, // allow 5 requests to go at full-speed, then...
-    delayMs: 1000 // 6th request has a 100ms delay, 7th has a 200ms delay, 8th gets 300ms, etc.
-});
+var timeDelay=1000;
 let hour = 3600000;
-
-
-
-
-
-
 router.use(session({secret: 'alex_fyp_2018', resave: false, saveUninitialized: true,}));
 
 var localEnv=process.env.LOCALENV;
@@ -50,7 +38,6 @@ var transporter = nodemailer.createTransport({
 router.get('/', function (req, res, next) {
     if(req.session.user){
         connection.query('SELECT * FROM car_data ORDER BY id DESC', function (error, results, fields) {
-            console.log(req.session);
             res.render('index', {car_data: results});
         });
     }
@@ -125,11 +112,11 @@ router.post('/', function (req, res, next) {
                 if (car_data.car_reg.toUpperCase().match(regex)) {
                     var thisRequestTime=new Date();
                     if(localEnv==='true'){
+                        //localhost testing
                         let pyshell = new PythonShell('../fyp/checkNct.py', {pythonPath: '/usr/bin/python'});
-                        /////////////////////////////////////
                         if(thisRequestTime.getTime() - lastRequestTime.getTime() > 20000){
                             log("delay in first if " + timeDelay);
-                            timeDelay=2000;
+                            timeDelay=1000;
                         }
                         if(thisRequestTime.getTime() - lastRequestTime.getTime() > 2000){
                             log("delay in second if " + timeDelay);
@@ -137,7 +124,7 @@ router.post('/', function (req, res, next) {
                             pyshell.send(car_data.car_reg);
                         }
                         else{
-                            timeDelay=timeDelay+2000;
+                            timeDelay=timeDelay+1000;
                             log("delay in else " + timeDelay);
                             setTimeout(function () {
                                 pyshell.send(car_data.car_reg);
@@ -150,13 +137,14 @@ router.post('/', function (req, res, next) {
                             car_data.nct = message;
                             resolve(message);
                         });
-                        ///////
+
                     }
                     else{
                         let pyshell = new PythonShell('/opt/live/my-first-app/checkNct.py', {pythonPath: '/usr/bin/python'});
+                        //the script that is being called on the droplet
                         if(thisRequestTime.getTime() - lastRequestTime.getTime() > 20000){
                             log("delay in first if " + timeDelay);
-                            timeDelay=2000;
+                            timeDelay=1000;
                         }
                         if(thisRequestTime.getTime() - lastRequestTime.getTime() > 2000){
                             log("delay in second if " + timeDelay);
@@ -164,7 +152,7 @@ router.post('/', function (req, res, next) {
                             pyshell.send(car_data.car_reg);
                         }
                         else{
-                            timeDelay=timeDelay+2000;
+                            timeDelay=timeDelay+1000;
                             log("delay in else " + timeDelay);
                             setTimeout(function () {
                                 pyshell.send(car_data.car_reg);
@@ -233,134 +221,6 @@ router.post('/logout', function (req, res, next) {
     req.session.user = null;
     res.redirect('/');
 });
-
-//
-// router.post('/caspertest', function (req, res, next) {
-//     // const phantom = require('phantom');
-//     // (async function() {
-//     //     const instance = await phantom.create();
-//     //     const page = await instance.createPage();
-//     //     await page.on('onResourceRequested', function(requestData) {
-//     //         // console.info('Requesting', requestData.url);
-//     //     });
-//     //
-//     //     const status = await page.open('https://www.ncts.ie/1263');
-//     //     const content = await page.property('content');
-//     //         page.evaluate(function() {
-//     //             document.getElementById('CloseCookie').click();
-//     //             console.log("done");
-//     //             document.getElementsByName("RegistrationID").value="12CW1484";
-//     //             console.log(document.querySelectorAll(".btn"));
-//     //
-//     //
-//     //         });
-//     //     // console.log(content);
-//     //
-//     //     var promise = page.close();
-//     //     promise.then(function (done) {
-//     //         instance.exit();
-//     //
-//     //     });
-//     // })();
-//     // res.end();
-//     //
-//     try {
-//         var Spooky = require('spooky');
-//     } catch (e) {
-//         // var Spooky = require('../lib/spooky');
-//     }
-//
-//     var spooky = new Spooky({
-//         child: {
-//             transport: 'http'
-//         },
-//         casper: {
-//             logLevel: 'debug',
-//             verbose: true
-//         }
-//     }, function (err) {
-//         if (err) {
-//             e = new Error('Failed to initialize SpookyJS');
-//             e.details = err;
-//             throw e;
-//         }
-//
-//         spooky.start(
-//             'http://en.wikipedia.org/wiki/Spooky_the_Tuff_Little_Ghost');
-//         spooky.then(function () {
-//             this.emit('hello', 'Hello, from ' + this.evaluate(function () {
-//                 return document.title;
-//             }));
-//         });
-//         spooky.run();
-//     });
-//
-//     spooky.on('error', function (e, stack) {
-//         console.error(e);
-//
-//         if (stack) {
-//             console.log(stack);
-//         }
-//     });
-//
-//     /*
-//     // Uncomment this block to see all of the things Casper has to say.
-//     // There are a lot.
-//     // He has opinions.
-//     spooky.on('console', function (line) {
-//         console.log(line);
-//     });
-//     */
-//
-//     spooky.on('hello', function (greeting) {
-//         console.log(greeting);
-//     });
-//
-//     spooky.on('log', function (log) {
-//         if (log.space === 'remote') {
-//             console.log(log.message.replace(/ \- .*/, ''));
-//         }
-//     });
-//     //
-//     // // text = raw_input()
-//     // if __name__ == "__main__":
-//     // options = Options()
-//     // options.add_argument('-headless')
-//     // driver = Firefox(executable_path='geckodriver', firefox_options=options)
-//     // try:
-//     // driver.get('https://www.ncts.ie/1263')
-//     // driver.find_element_by_xpath("//button[@id='CloseCookie']").click()
-//     // driver.refresh()
-//     // nctInput=driver.find_element_by_xpath("//input[@name='RegistrationID']")
-//     // nctInput.clear()
-//     // nctInput.send_keys(text+ Keys.ENTER )
-//     // WebDriverWait(driver, 10).until(expected.presence_of_element_located((By.ID, "confirmVehicleYes")))
-//     // driver.find_element_by_xpath("//input[@id='confirmVehicleYes']").send_keys(Keys.ENTER)
-//     // WebDriverWait(driver, 10).until(expected.presence_of_element_located((By.ID, "tab3")))
-//     // print (driver.find_element_by_xpath('//*[@id="tab3"]/form[1]/div[2]/div[1]/div[1]/table/tbody/tr[1]/td').text)
-//     // except TimeoutException as ex:
-//     // print 'script_crashed'
-//     // isrunning = 0
-//     // driver.quit()
-//     // driver.quit()
-//
-//
-// });
-//
-// function click(el){
-//     var ev = document.createEvent("MouseEvent");
-//     ev.initMouseEvent(
-//         "click",
-//         true /* bubble */, true /* cancelable */,
-//         window, null,
-//         0, 0, 0, 0, /* coordinates */
-//         false, false, false, false, /* modifier keys */
-//         0 /*left*/, null
-//     );
-//     el.dispatchEvent(ev);
-// }
-//
-//
 
 
 module.exports = router;
