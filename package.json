@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "body-parser": "^1.18.3",
+    "casper": "^0.1.1",
     "cookie-parser": "~1.4.3",
     "debug": "^2.6.9",
     "dotenv": "^6.1.0",
@@ -21,7 +22,11 @@
     "mysql": "^2.16.0",
     "nodemailer": "^4.6.8",
     "nodemon": "^1.18.4",
+    "phantom": "^6.0.3",
+    "phantomjs": "^2.1.7",
     "pug": "2.0.0-beta11",
-    "python-shell": "^1.0.6"
+    "python-shell": "^1.0.6",
+    "spooky": "^0.2.5",
+    "zombie": "^6.1.3"
   }
 }
