@@ -1,0 +1,30 @@
+bootstrap js +css 3
+
+
+
+
+<p id='test'>hellothere</p>
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+     <img src='https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350'>
+    </div>
+  </div>
+</div>
+
+
+
+$(document).ready(function(){
+    $( "#test" ).hover(function() {
+           $('.modal').modal({ show: true});
+
+
+  });
+
+$('html').click(function(){
+    $('.modal').hide();
+});
+$('.modal').click(function(e){
+    e.stopPropagation();
+});
+});

@@ -1,12 +1,28 @@
 //extends layout
 doctype html
 head
+    script(src='https://code.jquery.com/jquery-3.3.1.js', integrity='sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=', crossorigin='anonymous')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js', integrity='sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa', crossorigin='anonymous')
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u', crossorigin='anonymous')
     link(rel='stylesheet', href='/stylesheets/style.css')
+
 body
     form#logout(action='/logout', method='post', role='form', style='display: block;')
         input(value='Log out', type='submit', id='logoutButton')
     br
+    .container
+        #myModal.modal.fade(role='dialog')
+            .modal-dialog
+                // Modal content
+                .modal-content
+                    .modal-header
+                        button.close(type='button', data-dismiss='modal') ×
+                    .modal-body
+                        .center
+                            img(src='images/318.jpg')
+                    .modal-footer
+                        button.btn.btn-default(type='button', data-dismiss='modal') Close
+
     .center
         block content
             table
@@ -19,6 +35,7 @@ body
                         th Nct expiry date
                         th X coord
                         th Y coord
+                        th Proof
 
                     each user in car_data
                         td=user.id
@@ -28,5 +45,20 @@ body
                         td=user.nct
                         td=user.x_coord
                         td=user.y_coord
+                        td
+                            button(type='button', class='regPlateButton' id=user.id) Open Modal
                         tr
 
+
+
+
+    script.
+        $(document).on('click', '.regPlateButton', function () {
+            $( ".modal-body" ).html("<img src="+ "images/"+this.id+'.jpg'+" height='50%', width='50%'>");
+            $('#myModal').modal({
+                show: 'true'
+            });
+        });
+        $('.modal').click(function (e) {
+            $(".modal-dialog").attr("data-dismiss", "modal");
+        });

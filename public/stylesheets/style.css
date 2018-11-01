@@ -24,3 +24,14 @@ table {
 .center {
     text-align: center;
 }
+
+.modal-dialog {
+    width: 75%;
+    height: 75%;
+}
+
+img {
+    display: block;
+    width: auto;
+    margin: auto;
+}
