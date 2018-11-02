@@ -37,7 +37,7 @@ var transporter = nodemailer.createTransport({
 
 router.get('/', function (req, res, next) {
     if(req.session.user){
-        connection.query('SELECT * FROM car_data ORDER BY id DESC', function (error, results, fields) {
+        connection.query('SELECT * FROM car_data WHERE id > 340 ORDER BY id DESC', function (error, results, fields) {
             log("GET /");
             res.render('index', {car_data: results});
         });
