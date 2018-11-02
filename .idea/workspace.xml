@@ -5,13 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="99c70e4c-a337-497a-8956-ab451ba54fd9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/317.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/320.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/320.JPG" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/index.pug" beforeDir="false" afterPath="$PROJECT_DIR$/views/index.pug" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -70,7 +65,7 @@
           <entry key="env" value="70" />
           <entry key="frontendstuff" value="28" />
           <entry key="gitignore" value="5" />
-          <entry key="js" value="10656" />
+          <entry key="js" value="10935" />
           <entry key="json" value="5" />
           <entry key="pug" value="1297" />
           <entry key="py" value="170" />
@@ -83,7 +78,7 @@
           <entry key="CSS" value="139" />
           <entry key="JSON" value="5" />
           <entry key="Jade" value="1297" />
-          <entry key="JavaScript" value="10656" />
+          <entry key="JavaScript" value="10935" />
           <entry key="PLAIN_TEXT" value="313" />
         </counts>
       </usages-collector>
@@ -144,8 +139,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="415">
-              <caret line="288" column="43" lean-forward="true" selection-start-line="288" selection-start-column="43" selection-end-line="288" selection-end-column="43" />
+            <state relative-caret-position="460">
+              <caret line="229" column="28" selection-start-line="229" selection-start-column="28" selection-end-line="229" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -384,12 +379,12 @@
       <workItem from="1541098438921" duration="2271000" />
       <workItem from="1541101155236" duration="2941000" />
       <workItem from="1541105119792" duration="7003000" />
-      <workItem from="1541151098304" duration="4507000" />
+      <workItem from="1541151098304" duration="5109000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="82838000" />
+    <option name="totallyTimeSpent" value="83440000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-2" width="1920" height="1017" extended-state="6" />
@@ -534,8 +529,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="415">
-          <caret line="288" column="43" lean-forward="true" selection-start-line="288" selection-start-column="43" selection-end-line="288" selection-end-column="43" />
+        <state relative-caret-position="460">
+          <caret line="229" column="28" selection-start-line="229" selection-start-column="28" selection-end-line="229" selection-end-column="28" />
         </state>
       </provider>
     </entry>

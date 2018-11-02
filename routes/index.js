@@ -222,7 +222,13 @@ router.post('/alprPOST', function (req, res, next) {
                             timeout: 2000
                         },
                         function (error, response, body) {
-                        console.log(destination);
+
+
+                            var goog = getGPSCOORD(results[0].id).then(function (resOBJ) {
+                                console.log(resOBJ);
+                            });
+                            
+                        // console.log(destination);
                             if (error) {
                                 console.log('--- error:');
                                 console.log(error);            // error encountered
@@ -258,56 +264,70 @@ router.post('/alprPOST', function (req, res, next) {
 router.post('/ALPRDAEMONTEST', function (req, res, next) {
     res.end();
     log("ALP /");
-
-    try {
-        new ExifImage({ image : 'public/images/320.JPG' }, function (error, exifData) {
-            if (error)
-                console.log('Error: '+error.message);
-            else{
-                indices = (c, s) => s
-                    .split('')
-                    .reduce((a, e, i) => e === c ? a.concat(i) : a, []);
-
-                // var fullGPSCOORD="";
-                var exactDate=exifData.exif.CreateDate;
-                var gps=exifData.gps;
-                var GPSLat=String(gps.GPSLatitude);
-                var GPSLon=String(gps.GPSLongitude);
-                var indicesGPSLat=indices(',', String(GPSLat));
-                var indicesGPSLon=indices(',', GPSLon);
-
-                indices = (c, s) => s
-                    .split('')
-                    .reduce((a, e, i) => e === c ? a.concat(i) : a, []);
-
-                //getting the GPS lat coord
-                GPSLat=GPSLat.replaceAt(indicesGPSLat[0],"°");
-                GPSLat=GPSLat.replaceAt(indicesGPSLat[1],"'");
-                GPSLat=GPSLat.substr(0,GPSLat.indexOf('.')+3);
-                GPSLat=GPSLat + ' ' + gps.GPSLatitudeRef;
-
-                //getting the GPS lon coord
-                GPSLon=GPSLon.replaceAt(indicesGPSLon[0],"°");
-                GPSLon=GPSLon.replaceAt(indicesGPSLon[1],"'");
-                GPSLon=GPSLon.substr(0,GPSLon.indexOf('.')+3);
-                GPSLon=GPSLon + ' ' + gps.GPSLongitudeRef;
-
-                var fullGPSCOORD=GPSLat+ ' ' +GPSLon;
-                console.log(exactDate);
-                console.log(fullGPSCOORD);
-            }
-
-        });
-    } catch (error) {
-        console.log('Error: ' + error.message);
-    }
 });
+
+
+function getGPSCOORD(carID){
+    return new Promise((resolve, reject) => {
+        var gpsDATA={
+            gpsCOORD : '',
+            accurateTime: ''
+        };
+        try {
+            new ExifImage({ image : 'public/images/'+carID+'.jpg' }, function (error, exifData) {
+                if (error)
+                    console.log('Error: '+error.message);
+                else{
+                    indices = (c, s) => s
+                        .split('')
+                        .reduce((a, e, i) => e === c ? a.concat(i) : a, []);
+
+                    // var fullGPSCOORD="";
+                    var exactDate=exifData.exif.CreateDate;
+                    var gps=exifData.gps;
+                    var GPSLat=String(gps.GPSLatitude);
+                    var GPSLon=String(gps.GPSLongitude);
+                    var indicesGPSLat=indices(',', String(GPSLat));
+                    var indicesGPSLon=indices(',', GPSLon);
+
+                    indices = (c, s) => s
+                        .split('')
+                        .reduce((a, e, i) => e === c ? a.concat(i) : a, []);
+
+                    //getting the GPS lat coord
+                    GPSLat=GPSLat.replaceAt(indicesGPSLat[0],"°");
+                    GPSLat=GPSLat.replaceAt(indicesGPSLat[1],"'");
+                    GPSLat=GPSLat.substr(0,GPSLat.indexOf('.')+3);
+                    GPSLat=GPSLat + ' ' + gps.GPSLatitudeRef;
+
+                    //getting the GPS lon coord
+                    GPSLon=GPSLon.replaceAt(indicesGPSLon[0],"°");
+                    GPSLon=GPSLon.replaceAt(indicesGPSLon[1],"'");
+                    GPSLon=GPSLon.substr(0,GPSLon.indexOf('.')+3);
+                    GPSLon=GPSLon + ' ' + gps.GPSLongitudeRef;
+
+                    var fullGPSCOORD=GPSLat+ ' ' +GPSLon;
+                    gpsDATA.gpsCOORD=fullGPSCOORD;
+                    gpsDATA.accurateTime=exactDate;
+                    // console.log(exactDate);
+                    // console.log(fullGPSCOORD);
+                    resolve(gpsDATA);
+                }
+
+            });
+        } catch (error) {
+            reject(error.message);
+            console.log('Error: ' + error.message);
+        }
+
+    });
+}
 
 
 
 String.prototype.replaceAt=function(index, replacement) {
     return this.substr(0, index) + replacement+ this.substr(index + replacement.length);
-}
+};
 
 
 module.exports = router;
