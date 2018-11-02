@@ -195,7 +195,7 @@ router.post('/alprPOST', function (req, res, next) {
             }
             async function thirdFunction(){
                 var result = await firstFunction();
-                connection.query('INSERT INTO car_data (car_reg, date, valid_permit, gps_coord, nct) VALUES (?,?,?,?,?,?)', [car_data.car_reg, car_data.date, car_data.valid_permit, car_data.gps_coord, car_data.nct], function (err, result) {
+                connection.query('INSERT INTO car_data (car_reg, date, valid_permit, gps_coord, nct) VALUES (?,?,?,?,?)', [car_data.car_reg, car_data.date, car_data.valid_permit, car_data.gps_coord, car_data.nct], function (err, result) {
                     if (err)
                         console.log(err);
                     console.log(car_data);
@@ -205,7 +205,9 @@ router.post('/alprPOST', function (req, res, next) {
 
             async function secondFunction() {
                 var result = await thirdFunction();
-                connection.query('SELECT * FROM car_data where car_reg=? ORDER BY id DESC', [car_data.car_reg], function (error, results, fields) {
+                connection.query('SELECT * FROM car_data where car_reg=? ORDER BY id DESC', [car_data.car_reg], function (errorrr, results, fields) {
+                    if(errorrr)
+                        console.log(errorrr);
                     var destination="";
                     if (localEnv==='true'){
                          destination ='/home/alexander11/fyp/public/images/' + results[0].id + '.jpg';
@@ -221,12 +223,11 @@ router.post('/alprPOST', function (req, res, next) {
                             timeout: 2000
                         },
                         function (error, response, body) {
-
-
-                            var goog = getGPSCOORD('320.JPG').then(function (resOBJ) {
-                                var myObj=resOBJ;
-                                myObj.gpsCOORD=myObj.gpsCOORD.replaceAll('/','');
-                                console.log(myObj);
+                            var gpsCOORDPromise = getGPSCOORD('320.JPG').then(function (resOBJ) {
+                                resOBJ.gpsCOORD=resOBJ.gpsCOORD.replace('/', '');
+                                connection.query('UPDATE car_data set gps_coord=?, date=?, where id=?', [resOBJ.gpsCOORD,resOBJ.accurateTime,results[0].id], function (errorrr, results, fields) {
+                                    log("gps coord & time were updates");
+                                });
 
                             });
 
@@ -300,13 +301,13 @@ function getGPSCOORD(carID){
                     GPSLat=GPSLat.replaceAt(indicesGPSLat[0],"°");
                     GPSLat=GPSLat.replaceAt(indicesGPSLat[1],"'");
                     GPSLat=GPSLat.substr(0,GPSLat.indexOf('.')+3);
-                    GPSLat=GPSLat + ' ' + gps.GPSLatitudeRef;
+                    GPSLat=GPSLat + '" ' + gps.GPSLatitudeRef;
 
                     //getting the GPS lon coord
                     GPSLon=GPSLon.replaceAt(indicesGPSLon[0],"°");
                     GPSLon=GPSLon.replaceAt(indicesGPSLon[1],"'");
                     GPSLon=GPSLon.substr(0,GPSLon.indexOf('.')+3);
-                    GPSLon=GPSLon + ' ' + gps.GPSLongitudeRef;
+                    GPSLon=GPSLon + '" ' + gps.GPSLongitudeRef;
 
                     var fullGPSCOORD=GPSLat+ ' ' +GPSLon;
                     gpsDATA.gpsCOORD=fullGPSCOORD;

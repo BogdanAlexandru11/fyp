@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="99c70e4c-a337-497a-8956-ab451ba54fd9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -65,7 +64,7 @@
           <entry key="env" value="70" />
           <entry key="frontendstuff" value="28" />
           <entry key="gitignore" value="5" />
-          <entry key="js" value="11056" />
+          <entry key="js" value="11318" />
           <entry key="json" value="5" />
           <entry key="pug" value="1308" />
           <entry key="py" value="170" />
@@ -78,7 +77,7 @@
           <entry key="CSS" value="139" />
           <entry key="JSON" value="5" />
           <entry key="Jade" value="1308" />
-          <entry key="JavaScript" value="11056" />
+          <entry key="JavaScript" value="11318" />
           <entry key="PLAIN_TEXT" value="313" />
         </counts>
       </usages-collector>
@@ -139,8 +138,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="268">
-              <caret line="199" column="41" selection-start-line="199" selection-start-column="41" selection-end-line="199" selection-end-column="41" />
+            <state relative-caret-position="85">
+              <caret line="224" column="58" selection-start-line="224" selection-start-column="58" selection-end-line="224" selection-end-column="58" />
             </state>
           </provider>
         </entry>
@@ -222,7 +221,6 @@
     <findStrings>
       <find>MERGE_HEAD</find>
       <find>agent</find>
-      <find>error</find>
       <find>let</find>
       <find>inserted</find>
       <find>message</find>
@@ -239,6 +237,8 @@
       <find>Not applicable</find>
       <find>318</find>
       <find>insert</find>
+      <find>error</find>
+      <find>getGPSCOORD</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -380,12 +380,12 @@
       <workItem from="1541098438921" duration="2271000" />
       <workItem from="1541101155236" duration="2941000" />
       <workItem from="1541105119792" duration="7003000" />
-      <workItem from="1541151098304" duration="6284000" />
+      <workItem from="1541151098304" duration="8060000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="84615000" />
+    <option name="totallyTimeSpent" value="86391000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-2" width="1920" height="1017" extended-state="6" />
@@ -530,8 +530,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="199" column="41" selection-start-line="199" selection-start-column="41" selection-end-line="199" selection-end-column="41" />
+        <state relative-caret-position="85">
+          <caret line="224" column="58" selection-start-line="224" selection-start-column="58" selection-end-line="224" selection-end-column="58" />
         </state>
       </provider>
     </entry>
