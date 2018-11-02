@@ -54,7 +54,17 @@ body
 
     script.
         $(document).on('click', '.regPlateButton', function () {
-            $( ".modal-body" ).html("<img src="+ "images/"+this.id+'.jpg'+" height='50%', width='50%'>");
+            var myid=this.id;
+            $.get('images/' + this.id + '.jpg')
+                .done(function () {
+                    $(".modal-body").html("<img src=" + "images/" + myid + '.jpg' + " height='50%', width='50%'>");
+                    // exists code
+                }).fail(function () {
+                $(".modal-body").html("<p> Image not available</p>");
+            });
+
+
+
             $('#myModal').modal({
                 show: 'true'
             });
@@ -62,3 +72,6 @@ body
         $('.modal').click(function (e) {
             $(".modal-dialog").attr("data-dismiss", "modal");
         });
+
+
+

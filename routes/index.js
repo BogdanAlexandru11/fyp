@@ -204,17 +204,18 @@ router.post('/alprPOST', function (req, res, next) {
 
             async function secondFunction() {
                 var result = await thirdFunction();
-                connection.query('SELECT * FROM car_data where car_reg=? ORDER BY id DESC', ['12cw1484'], function (error, results, fields) {
+                connection.query('SELECT * FROM car_data where car_reg=? ORDER BY id DESC', [car_data.car_reg], function (error, results, fields) {
                     var destination="";
                     if (localEnv==='true'){
                          destination ='/home/alexander11/fyp/public/images/' + results[0].id + '.jpg';
                     }
                     else{
                         destination='/opt/live/my-first-app/public/images/'+ results[0].id + '.jpg';
+                        // url:  'http://127.0.0.1:8355/img/'+req.body.best_uuid+'.jpg'
 
                     }
                     wget({
-                            url:  'http://46.101.52.245:8355/img/'+req.body.best_uuid+'.jpg',
+                            url:  'http://127.0.0.1:8355/img/'+req.body.best_uuid+'.jpg',
                             dest: destination,
                             timeout: 2000
                         },
