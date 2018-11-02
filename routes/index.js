@@ -195,7 +195,9 @@ router.post('/alprPOST', function (req, res, next) {
             }
             async function thirdFunction(){
                 var result = await firstFunction();
-                connection.query('INSERT INTO car_data (car_reg, date, valid_permit, x_coord, y_coord, nct) VALUES (?,?,?,?,?,?)', [car_data.car_reg, car_data.date, car_data.valid_permit, car_data.x_coord, car_data.y_coord, car_data.nct], function (err, result) {
+                connection.query('INSERT INTO car_data (car_reg, date, valid_permit, gps_coord, nct) VALUES (?,?,?,?,?,?)', [car_data.car_reg, car_data.date, car_data.valid_permit, car_data.gps_coord, car_data.nct], function (err, result) {
+                    if (err)
+                        console.log(err);
                     console.log(car_data);
                     return ("car_data inserted into the db");
                 });
@@ -222,7 +224,10 @@ router.post('/alprPOST', function (req, res, next) {
 
 
                             var goog = getGPSCOORD('320.JPG').then(function (resOBJ) {
-                                console.log(resOBJ);
+                                var myObj=resOBJ;
+                                myObj.gpsCOORD=myObj.gpsCOORD.replaceAll('/','');
+                                console.log(myObj);
+
                             });
 
                         // console.log(destination);
