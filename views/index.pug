@@ -33,8 +33,7 @@ body
                         th Timestamp
                         th Valid permit
                         th Nct expiry date
-                        th X coord
-                        th Y coord
+                        th gps coord
                         th Proof
 
                     each user in car_data
@@ -43,10 +42,9 @@ body
                         td=user.date
                         td=user.valid_permit
                         td=user.nct
-                        td=user.x_coord
-                        td=user.y_coord
+                        td=user.gps_coord
                         td
-                            button(type='button', class='regPlateButton' id=user.id) <Proof></Proof>
+                            button(type='button', class='regPlateButton' id=user.id) Proof
                         tr
 
 

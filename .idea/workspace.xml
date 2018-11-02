@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/views/index.pug" line="57" />
+    <bookmark url="file://$PROJECT_DIR$/views/index.pug" line="55" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="99c70e4c-a337-497a-8956-ab451ba54fd9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/index.pug" beforeDir="false" afterPath="$PROJECT_DIR$/views/index.pug" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -65,9 +65,9 @@
           <entry key="env" value="70" />
           <entry key="frontendstuff" value="28" />
           <entry key="gitignore" value="5" />
-          <entry key="js" value="10935" />
+          <entry key="js" value="10961" />
           <entry key="json" value="5" />
-          <entry key="pug" value="1297" />
+          <entry key="pug" value="1308" />
           <entry key="py" value="170" />
           <entry key="txt" value="110" />
         </counts>
@@ -77,8 +77,8 @@
           <entry key=".env file" value="70" />
           <entry key="CSS" value="139" />
           <entry key="JSON" value="5" />
-          <entry key="Jade" value="1297" />
-          <entry key="JavaScript" value="10935" />
+          <entry key="Jade" value="1308" />
+          <entry key="JavaScript" value="10961" />
           <entry key="PLAIN_TEXT" value="313" />
         </counts>
       </usages-collector>
@@ -139,8 +139,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="460">
-              <caret line="229" column="28" selection-start-line="229" selection-start-column="28" selection-end-line="229" selection-end-column="28" />
+            <state relative-caret-position="685">
+              <caret line="224" column="52" lean-forward="true" selection-start-line="224" selection-start-column="52" selection-end-line="224" selection-end-column="52" />
             </state>
           </provider>
         </entry>
@@ -148,8 +148,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/index.pug">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="350">
-              <caret line="48" column="92" selection-start-line="48" selection-start-column="92" selection-end-line="48" selection-end-column="92" />
+            <state relative-caret-position="155">
+              <caret line="35" column="30" selection-start-line="35" selection-start-column="30" selection-end-line="35" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -379,12 +379,12 @@
       <workItem from="1541098438921" duration="2271000" />
       <workItem from="1541101155236" duration="2941000" />
       <workItem from="1541105119792" duration="7003000" />
-      <workItem from="1541151098304" duration="5109000" />
+      <workItem from="1541151098304" duration="5822000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="83440000" />
+    <option name="totallyTimeSpent" value="84153000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-2" width="1920" height="1017" extended-state="6" />
@@ -522,15 +522,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/views/index.pug">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="48" column="92" selection-start-line="48" selection-start-column="92" selection-end-line="48" selection-end-column="92" />
+        <state relative-caret-position="155">
+          <caret line="35" column="30" selection-start-line="35" selection-start-column="30" selection-end-line="35" selection-end-column="30" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="460">
-          <caret line="229" column="28" selection-start-line="229" selection-start-column="28" selection-end-line="229" selection-end-column="28" />
+        <state relative-caret-position="685">
+          <caret line="224" column="52" lean-forward="true" selection-start-line="224" selection-start-column="52" selection-end-line="224" selection-end-column="52" />
         </state>
       </provider>
     </entry>

@@ -87,8 +87,7 @@ router.post('/alprPOST', function (req, res, next) {
                     id :'',
                     car_reg: '12cw1484',
                     date: moment().format('MMMM Do YYYY, h:mm:ss a'),
-                    x_coord: 'N/A',
-                    y_coord: 'N/A',
+                    gps_coord: 'N/A',
                     valid_permit: 'false',
                     nct: ''
                 };
@@ -101,8 +100,7 @@ router.post('/alprPOST', function (req, res, next) {
                         id :'',
                         car_reg: '07D78411',
                         date: moment().format('MMMM Do YYYY, h:mm:ss a'),
-                        x_coord: 'N/A',
-                        y_coord: 'N/A',
+                        gps_coord: 'N/A',
                         valid_permit: 'false',
                         nct: ''
                     };
@@ -113,8 +111,7 @@ router.post('/alprPOST', function (req, res, next) {
                         id :'',
                         car_reg: req.body.best_plate.plate,
                         date: moment().format('MMMM Do YYYY, h:mm:ss a'),
-                        x_coord: 'N/A',
-                        y_coord: 'N/A',
+                        gps_coord: 'N/A',
                         valid_permit: 'false',
                         nct: ''
                     };
@@ -224,10 +221,10 @@ router.post('/alprPOST', function (req, res, next) {
                         function (error, response, body) {
 
 
-                            var goog = getGPSCOORD(results[0].id).then(function (resOBJ) {
+                            var goog = getGPSCOORD('320.JPG').then(function (resOBJ) {
                                 console.log(resOBJ);
                             });
-                            
+
                         // console.log(destination);
                             if (error) {
                                 console.log('--- error:');
@@ -274,7 +271,7 @@ function getGPSCOORD(carID){
             accurateTime: ''
         };
         try {
-            new ExifImage({ image : 'public/images/'+carID+'.jpg' }, function (error, exifData) {
+            new ExifImage({ image : 'public/images/'+carID }, function (error, exifData) {
                 if (error)
                     console.log('Error: '+error.message);
                 else{
