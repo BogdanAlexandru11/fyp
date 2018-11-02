@@ -17,6 +17,9 @@ let hour = 3600000;
 router.use(session({secret: 'alex_fyp_2018', resave: false, saveUninitialized: true,}));
 var wget = require('node-wget');
 var localEnv=process.env.LOCALENV;
+var bs = require('nodestalker'),
+    client = bs.Client('127.0.0.1:11300');
+
 
 
 
@@ -250,6 +253,20 @@ router.post('/alprPOST', function (req, res, next) {
         }
     }
     res.end();
+});
+
+
+router.post('/ALPRDAEMONTEST', function (req, res, next) {
+    res.end();
+    log("ALP /");
+    client.use('alprd').onSuccess(function(data) {
+        console.log(data);
+
+        client.put('my job').onSuccess(function(data) {
+            console.log(data);
+            client.disconnect();
+        });
+    });
 });
 
 
