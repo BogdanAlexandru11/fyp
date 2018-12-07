@@ -270,6 +270,14 @@ router.post('/ALPRDAEMONTEST', function (req, res, next) {
 });
 
 
+router.post('/GPSDATA', function (req, res, next) {
+    res.end();
+    log(req.body)
+});
+
+
+
+
 function getGPSCOORD(carID){
     return new Promise((resolve, reject) => {
         var gpsDATA={
