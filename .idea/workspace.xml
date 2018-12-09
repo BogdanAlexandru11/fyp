@@ -67,7 +67,7 @@
           <entry key="env" value="70" />
           <entry key="frontendstuff" value="28" />
           <entry key="gitignore" value="5" />
-          <entry key="js" value="11550" />
+          <entry key="js" value="11628" />
           <entry key="json" value="5" />
           <entry key="pug" value="1308" />
           <entry key="py" value="170" />
@@ -80,7 +80,7 @@
           <entry key="CSS" value="139" />
           <entry key="JSON" value="5" />
           <entry key="Jade" value="1308" />
-          <entry key="JavaScript" value="11550" />
+          <entry key="JavaScript" value="11628" />
           <entry key="PLAIN_TEXT" value="368" />
         </counts>
       </usages-collector>
@@ -141,8 +141,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="538">
-              <caret line="281" column="16" lean-forward="true" selection-start-line="281" selection-start-column="16" selection-end-line="281" selection-end-column="16" />
+            <state relative-caret-position="445">
+              <caret line="281" column="17" selection-start-line="281" selection-start-column="17" selection-end-line="281" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -231,7 +231,6 @@
       <find>ju</find>
       <find>format</find>
       <find>``</find>
-      <find>moment</find>
       <find>lastRequestTime</find>
       <find>1000</find>
       <find>get</find>
@@ -243,6 +242,9 @@
       <find>getGPSCOORD</find>
       <find>insert into</find>
       <find>insert</find>
+      <find>insert</find>
+      <find>moment</find>
+      <find>date</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -388,12 +390,12 @@
       <workItem from="1541259517216" duration="1077000" />
       <workItem from="1541869897116" duration="166000" />
       <workItem from="1544206639983" duration="49000" />
-      <workItem from="1544363706233" duration="687000" />
+      <workItem from="1544363706233" duration="2439000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="88748000" />
+    <option name="totallyTimeSpent" value="90500000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-2" width="1920" height="1017" extended-state="6" />
@@ -539,8 +541,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="538">
-          <caret line="281" column="16" lean-forward="true" selection-start-line="281" selection-start-column="16" selection-end-line="281" selection-end-column="16" />
+        <state relative-caret-position="445">
+          <caret line="281" column="17" selection-start-line="281" selection-start-column="17" selection-end-line="281" selection-end-column="17" />
         </state>
       </provider>
     </entry>

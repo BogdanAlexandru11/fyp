@@ -273,8 +273,9 @@ router.post('/ALPRDAEMONTEST', function (req, res, next) {
 router.post('/GPSDATA', function (req, res, next) {
     res.end();
     log(req.body);
-    if(req.body.latitude && req.body.longitude && req.body.timestamp){
-        connection.query('INSERT INTO drone_telemetry (latitude, longitude, timestamp) VALUES (?,?,?)', [req.body.latitude, req.body.longitude, req.body.timestamp], function (err, result) {
+    const timestamp=moment().format('MMMM Do YYYY, h:mm:ss a');
+    if(req.body.latitude && req.body.longitude && req.body.altitude){
+        connection.query('INSERT INTO drone_telemetry (latitude, longitude, altitude, timestamp) VALUES (?,?,?,?)', [req.body.latitude, req.body.longitude, req.body.altitude, timestamp], function (err, result) {
             if (err) {
                 console.log(err);
             }
