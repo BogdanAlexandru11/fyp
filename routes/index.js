@@ -275,8 +275,12 @@ router.post('/GPSDATA', function (req, res, next) {
     log(req.body);
     if(req.body.latitude && req.body.longitude && req.body.timestamp){
         connection.query('INSERT INTO drone_telemetry (latitude, longitude, timestamp) VALUES (?,?,?)', [req.body.latitude, req.body.longitude, req.body.timestamp], function (err, result) {
-            if (err)
+            if (err) {
                 console.log(err);
+            }
+            else{
+                log("data inserted");
+            }
         });
     }
 });
