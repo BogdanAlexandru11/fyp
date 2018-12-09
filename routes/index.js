@@ -272,7 +272,13 @@ router.post('/ALPRDAEMONTEST', function (req, res, next) {
 
 router.post('/GPSDATA', function (req, res, next) {
     res.end();
-    log(req.body)
+    log(req.body);
+    if(req.body.latitude && req.body.longitude && req.body.timestamp){
+        connection.query('INSERT INTO drone_telemetry (latitude, longitude, timestamp) VALUES (?,?,?)', [req.body.latitude, req.body.longitude, req.body.timestamp], function (err, result) {
+            if (err)
+                console.log(err);
+        });
+    }
 });
 
 

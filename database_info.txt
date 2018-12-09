@@ -23,6 +23,14 @@ CREATE TABLE valid_permits (
 );
 
 
+CREATE TABLE drone_telemetry (
+    id int NOT NULL AUTO_INCREMENT,
+    latitude varchar(255),
+    longitude varchar(255),
+     timestamp varchar(255),
+    PRIMARY KEY (ID)
+);
+
 insert into valid_permits(car_reg, paidDate) values('12CW1484', '18-10.2018');
 insert into car_data(car_reg) values('123');
 
