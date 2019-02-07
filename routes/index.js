@@ -205,40 +205,43 @@ router.post('/alprPOST', function (req, res, next) {
 
             async function secondFunction() {
                 var result = await thirdFunction();
-                connection.query('SELECT * FROM car_data where car_reg=? ORDER BY id DESC', [car_data.car_reg], function (errorrr, results, fields) {
-                    if(errorrr)
-                        console.log(errorrr);
-                    var destination="";
-                    if (localEnv==='true'){
-                         destination ='/home/alexander11/fyp/public/images/' + results[0].id + '.jpg';
-                    }
-                    else{
-                        destination='/opt/live/my-first-app/public/images/'+ results[0].id + '.jpg';
-                        // url:  'http://127.0.0.1:8355/img/'+req.body.best_uuid+'.jpg'
+                
+                //obsolete code for getting the gps data from exif
 
-                    }
-                    wget({
-                            url:  'http://127.0.0.1:8355/img/'+req.body.best_uuid+'.jpg',
-                            dest: destination,
-                            timeout: 2000
-                        },
-                        function (error, response, body) {
-                            var gpsCOORDPromise = getGPSCOORD('320.JPG').then(function (resOBJ) {
-                                resOBJ.gpsCOORD=resOBJ.gpsCOORD.replace('/', '');
-                                connection.query('UPDATE car_data set gps_coord=?, date=?, where id=?', [resOBJ.gpsCOORD,resOBJ.accurateTime,results[0].id], function (errorrr, results, fields) {
-                                    log("gps coord & time were updates");
-                                });
+                // connection.query('SELECT * FROM car_data where car_reg=? ORDER BY id DESC', [car_data.car_reg], function (errorrr, results, fields) {
+                //     if(errorrr)
+                //         console.log(errorrr);
+                //     var destination="";
+                //     if (localEnv==='true'){
+                //          destination ='/home/alexander11/fyp/public/images/' + results[0].id + '.jpg';
+                //     }
+                //     else{
+                //         destination='/opt/live/my-first-app/public/images/'+ results[0].id + '.jpg';
+                //         // url:  'http://127.0.0.1:8355/img/'+req.body.best_uuid+'.jpg'
 
-                            });
+                //     }
+                //     wget({
+                //             url:  'http://127.0.0.1:8355/img/'+req.body.best_uuid+'.jpg',
+                //             dest: destination,
+                //             timeout: 2000
+                //         },
+                //         function (error, response, body) {
+                //             var gpsCOORDPromise = getGPSCOORD('320.JPG').then(function (resOBJ) {
+                //                 resOBJ.gpsCOORD=resOBJ.gpsCOORD.replace('/', '');
+                //                 connection.query('UPDATE car_data set gps_coord=?, date=?, where id=?', [resOBJ.gpsCOORD,resOBJ.accurateTime,results[0].id], function (errorrr, results, fields) {
+                //                     log("gps coord & time were updates");
+                //                 });
 
-                        // console.log(destination);
-                            if (error) {
-                                console.log('--- error:');
-                                console.log(error);            // error encountered
-                            }
-                        }
-                    );
-                });
+                //             });
+
+                //         // console.log(destination);
+                //             if (error) {
+                //                 console.log('--- error:');
+                //                 console.log(error);            // error encountered
+                //             }
+                //         }
+                //     );
+                // });
                 if (car_data.valid_permit === 'false') {
                     log("email sent");
                     var mailOptions = {
@@ -287,63 +290,63 @@ router.post('/GPSDATA', function (req, res, next) {
 });
 
 
+//obsolete code for getting the gps data from exif
 
+// function getGPSCOORD(carID){
+//     return new Promise((resolve, reject) => {
+//         var gpsDATA={
+//             gpsCOORD : '',
+//             accurateTime: ''
+//         };
+//         try {
+//             new ExifImage({ image : 'public/images/'+carID }, function (error, exifData) {
+//                 if (error)
+//                     console.log('Error: '+error.message);
+//                 else{
+//                     indices = (c, s) => s
+//                         .split('')
+//                         .reduce((a, e, i) => e === c ? a.concat(i) : a, []);
 
-function getGPSCOORD(carID){
-    return new Promise((resolve, reject) => {
-        var gpsDATA={
-            gpsCOORD : '',
-            accurateTime: ''
-        };
-        try {
-            new ExifImage({ image : 'public/images/'+carID }, function (error, exifData) {
-                if (error)
-                    console.log('Error: '+error.message);
-                else{
-                    indices = (c, s) => s
-                        .split('')
-                        .reduce((a, e, i) => e === c ? a.concat(i) : a, []);
+//                     // var fullGPSCOORD="";
+//                     var exactDate=exifData.exif.CreateDate;
+//                     var gps=exifData.gps;
+//                     var GPSLat=String(gps.GPSLatitude);
+//                     var GPSLon=String(gps.GPSLongitude);
+//                     var indicesGPSLat=indices(',', String(GPSLat));
+//                     var indicesGPSLon=indices(',', GPSLon);
 
-                    // var fullGPSCOORD="";
-                    var exactDate=exifData.exif.CreateDate;
-                    var gps=exifData.gps;
-                    var GPSLat=String(gps.GPSLatitude);
-                    var GPSLon=String(gps.GPSLongitude);
-                    var indicesGPSLat=indices(',', String(GPSLat));
-                    var indicesGPSLon=indices(',', GPSLon);
+//                     indices = (c, s) => s
+//                         .split('')
+//                         .reduce((a, e, i) => e === c ? a.concat(i) : a, []);
 
-                    indices = (c, s) => s
-                        .split('')
-                        .reduce((a, e, i) => e === c ? a.concat(i) : a, []);
+//                     //getting the GPS lat coord
+//                     GPSLat=GPSLat.replaceAt(indicesGPSLat[0],"°");
+//                     GPSLat=GPSLat.replaceAt(indicesGPSLat[1],"'");
+//                     GPSLat=GPSLat.substr(0,GPSLat.indexOf('.')+3);
+//                     GPSLat=GPSLat + '" ' + gps.GPSLatitudeRef;
 
-                    //getting the GPS lat coord
-                    GPSLat=GPSLat.replaceAt(indicesGPSLat[0],"°");
-                    GPSLat=GPSLat.replaceAt(indicesGPSLat[1],"'");
-                    GPSLat=GPSLat.substr(0,GPSLat.indexOf('.')+3);
-                    GPSLat=GPSLat + '" ' + gps.GPSLatitudeRef;
+//                     //getting the GPS lon coord
+//                     GPSLon=GPSLon.replaceAt(indicesGPSLon[0],"°");
+//                     GPSLon=GPSLon.replaceAt(indicesGPSLon[1],"'");
+//                     GPSLon=GPSLon.substr(0,GPSLon.indexOf('.')+3);
+//                     GPSLon=GPSLon + '" ' + gps.GPSLongitudeRef;
 
-                    //getting the GPS lon coord
-                    GPSLon=GPSLon.replaceAt(indicesGPSLon[0],"°");
-                    GPSLon=GPSLon.replaceAt(indicesGPSLon[1],"'");
-                    GPSLon=GPSLon.substr(0,GPSLon.indexOf('.')+3);
-                    GPSLon=GPSLon + '" ' + gps.GPSLongitudeRef;
+//                     var fullGPSCOORD=GPSLat+ ' ' +GPSLon;
+//                     gpsDATA.gpsCOORD=fullGPSCOORD;
+//                     gpsDATA.accurateTime=exactDate;
+//                     // console.log(exactDate);
+//                     // console.log(fullGPSCOORD);
+//                     resolve(gpsDATA);
+//                 }
 
-                    var fullGPSCOORD=GPSLat+ ' ' +GPSLon;
-                    gpsDATA.gpsCOORD=fullGPSCOORD;
-                    gpsDATA.accurateTime=exactDate;
-                    // console.log(exactDate);
-                    // console.log(fullGPSCOORD);
-                    resolve(gpsDATA);
-                }
+//             });
+//         } catch (error) {
+//             reject(error.message);
+//             console.log('Error: ' + error.message);
+//         }
 
-            });
-        } catch (error) {
-            reject(error.message);
-            console.log('Error: ' + error.message);
-        }
-
-    });
-}
+//     });
+// }
 
 
 
