@@ -217,6 +217,8 @@ router.post('/alprPOST', function (req, res, next) {
 
 
                     connection.query('UPDATE car_data set gps_coord=?, altitude=?, where id=?', [gpsCOORDs,altitude,carId], function (errorrr, results, fields) {
+                        console.log("errror here " + errorrr);
+                        console.log("result" + result);
                         log("gps coord were updated");
                     });
 
