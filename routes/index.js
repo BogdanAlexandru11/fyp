@@ -207,6 +207,7 @@ router.post('/alprPOST', function (req, res, next) {
                 var result = await thirdFunction();
 
                 connection.query('SELECT * FROM car_data where date=?', [car_data.date], function (errorrr, results, fields) {
+                    console.log(results[0]);
                     //the id will be results[0].id;
                     console.log("car id is " +results[0].id);
                     const carId=results[0].id;
@@ -244,34 +245,25 @@ router.post('/alprPOST', function (req, res, next) {
 
                 //obsolete code for getting the gps data from exif
 
-                // connection.query('SELECT * FROM car_data where car_reg=? ORDER BY id DESC', [car_data.car_reg], function (errorrr, results, fields) {
-                //     if(errorrr)
-                //         console.log(errorrr);
-                //     var destination="";
-                //     if (localEnv==='true'){
-                //          destination ='/home/alexander11/fyp/public/images/' + results[0].id + '.jpg';
-                //     }
-                //     else{
-                //         destination='/opt/live/my-first-app/public/images/'+ results[0].id + '.jpg';
-                //         // url:  'http://127.0.0.1:8355/img/'+req.body.best_uuid+'.jpg'
+                connection.query('SELECT * FROM car_data where car_reg=? ORDER BY id DESC', [car_data.car_reg], function (errorrr, results, fields) {
+                    if(errorrr)
+                        console.log(errorrr);
+                    var destination="";
+                    if (localEnv==='true'){
+                         destination ='/home/alexander11/fyp/public/images/' + results[0].id + '.jpg';
+                    }
+                    else{
+                        destination='/opt/live/my-first-app/public/images/'+ results[0].id + '.jpg';
+                        // url:  'http://127.0.0.1:8355/img/'+req.body.best_uuid+'.jpg'
 
-                //     }
-                //     wget({
-                //             url:  'http://127.0.0.1:8355/img/'+req.body.best_uuid+'.jpg',
-                //             dest: destination,
-                //             timeout: 2000
-                //         },
-                //         function (error, response, body) {
-                //             var gpsCOORDPromise = getGPSCOORD('320.JPG').then(function (resOBJ) {
-                //                 resOBJ.gpsCOORD=resOBJ.gpsCOORD.replace('/', '');
-                //                 connection.query('UPDATE car_data set gps_coord=?, date=?, where id=?', [resOBJ.gpsCOORD,resOBJ.accurateTime,results[0].id], function (errorrr, results, fields) {
-                //                     log("gps coord & time were updates");
-                //                 });
-
-                //             });
-                //         }
-                //     );
-                // });
+                    }
+                    wget({
+                            url:  'http://127.0.0.1:8355/img/'+req.body.best_uuid+'.jpg',
+                            dest: destination,
+                            timeout: 2000
+                        },
+                    );
+                });
                 if (car_data.valid_permit === 'false') {
                     log("email sent");
                     var mailOptions = {
