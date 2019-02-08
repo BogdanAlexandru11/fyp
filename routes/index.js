@@ -214,14 +214,21 @@ router.post('/alprPOST', function (req, res, next) {
                     const latitude="53.34888941592108";
                     const longitude="-7.0455235477066065";
                     const altitude="11.1";
-                    const gpsCOORDs=latitude.substr(0,5) + " " + longitude.substr(0,5);
+                    const gpsCOORDs=latitude.substr(0,10) + " " + longitude.substr(0,10);
 
 
-                    connection.query('UPDATE car_data set gps_coord=?, altitude=?, where id=?', [gpsCOORDs,altitude,carId], function (errorrr, results, fields) {
+                    // connection.query('UPDATE car_data set gps_coord=?, altitude=?, where id=?', [gpsCOORDs,altitude,carId], function (errorrr, results, fields) {
+                    //     console.log("errror here " + errorrr);
+                    //     console.log("result" + result);
+                    //     log("gps coord were updated");
+                    // });
+
+                    connection.query('update car_data set gps_coord = ?, altitude =? where id=?;',[gpsCOORDs,altitude,carId], function (errorrr, results, fields) {
                         console.log("errror here " + errorrr);
-                        console.log("result" + result);
                         log("gps coord were updated");
                     });
+
+                    
 
 
                     // connection.query('SELECT * FROM drone_telemetry', function (error, results, fields) {
@@ -243,7 +250,7 @@ router.post('/alprPOST', function (req, res, next) {
 
                 }); 
 
-                //obsolete code for getting the gps data from exif
+                //used to store the images!!!
 
                 connection.query('SELECT * FROM car_data where car_reg=? ORDER BY id DESC', [car_data.car_reg], function (errorrr, results, fields) {
                     if(errorrr)
@@ -264,6 +271,7 @@ router.post('/alprPOST', function (req, res, next) {
                         },
                     );
                 });
+                //
                 if (car_data.valid_permit === 'false') {
                     log("email sent");
                     var mailOptions = {

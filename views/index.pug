@@ -43,7 +43,9 @@ body
                         td=user.date
                         td=user.valid_permit
                         td=user.nct
-                        td=user.gps_coord
+                        td
+                            a(href='http://maps.google.com?q='+user.gps_coord target="_blank") #{user.gps_coord}
+            
                         td=user.altitude
                         td
                             button(type='button', class='regPlateButton' id=user.id) Proof
