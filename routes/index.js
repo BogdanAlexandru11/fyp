@@ -205,7 +205,7 @@ router.post('/alprPOST', function (req, res, next) {
 
             async function secondFunction() {
                 var result = await thirdFunction();
-                
+
                 //obsolete code for getting the gps data from exif
 
                 // connection.query('SELECT * FROM car_data where car_reg=? ORDER BY id DESC', [car_data.car_reg], function (errorrr, results, fields) {
@@ -353,6 +353,30 @@ router.post('/GPSDATA', function (req, res, next) {
 String.prototype.replaceAt=function(index, replacement) {
     return this.substr(0, index) + replacement+ this.substr(index + replacement.length);
 };
+
+router.post('/test', function (req, res, next) {
+    //December 9th 2018, 4:01:49 pm
+    // const mydate=moment('December 9th 2018, 4:01:49 pm').format();
+
+    var date = moment("December 9th 2018, 4:01:49 pm","MMMM Do YYYY, h:mm:s a");   
+    //there will be a moment which is now ...and that one needs to be searched in the table drone_telemetry
+   
+    connection.query('SELECT * FROM drone_telemetry', function (error, results, fields) {
+        for(var i =0;i<results.length;i++){
+            // log(results[i].timestamp);
+            var droneTelemetryDate=moment(results[i].timestamp,"MMMM Do YYYY, h:mm:s a");
+            //where mydate is the date when the car was detected
+            if(mydate.diff(droneTelemetryDate, "seconds")<5){
+                // set here the x and y co ords
+                // console.log(results[i].latitude);
+                // console.log(results[i].longitude);
+                // console.log(results[i].timestamp);
+            }
+        }
+    });
+    res.end();
+});
+
 
 
 module.exports = router;
