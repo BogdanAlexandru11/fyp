@@ -206,6 +206,40 @@ router.post('/alprPOST', function (req, res, next) {
             async function secondFunction() {
                 var result = await thirdFunction();
 
+                connection.query('SELECT * FROM car_data where date=?', [car_data.date], function (errorrr, results, fields) {
+                    //the id will be results[0].id;
+                    console.log("car id is " +results[0].id);
+                    const carId=results[0].id;
+                    const latitude="53.34888941592108";
+                    const longitude="-7.0455235477066065";
+                    const altitude="11.1";
+                    const gpsCOORDs=latitude.substr(0,5) + " " + longitude.substr(0,5);
+
+
+                    connection.query('UPDATE car_data set gps_coord=?, altitude=?, where id=?', [gpsCOORDs,altitude,carId], function (errorrr, results, fields) {
+                        log("gps coord were updated");
+                    });
+
+
+                    // connection.query('SELECT * FROM drone_telemetry', function (error, results, fields) {
+                    //     for(var i =0;i<results.length;i++){
+                    //         // log(results[i].timestamp);
+                    //         var droneTelemetryDate=moment(results[i].timestamp,"MMMM Do YYYY, h:mm:s a");
+                    //         //where mydate is the date when the car was detected
+                    //         if(mydate.diff(droneTelemetryDate, "seconds")<5){
+                    //             // set here the x and y co ords
+                    //             const altitude=results[i].altitude;
+                    //             const gpsCOORDs=results[i].latitude.substr(0,5) + " " + results[i].longitude.substr(0,5);
+                    //             connection.query('UPDATE car_data set gps_coord=?, where id=?', [gpsCOORDs,carId], function (errorrr, results, fields) {
+                    //                 log("gps coord were updated");
+                    //             });
+                
+                    //         }
+                    //     }
+                    // });
+
+                }); 
+
                 //obsolete code for getting the gps data from exif
 
                 // connection.query('SELECT * FROM car_data where car_reg=? ORDER BY id DESC', [car_data.car_reg], function (errorrr, results, fields) {
@@ -233,12 +267,6 @@ router.post('/alprPOST', function (req, res, next) {
                 //                 });
 
                 //             });
-
-                //         // console.log(destination);
-                //             if (error) {
-                //                 console.log('--- error:');
-                //                 console.log(error);            // error encountered
-                //             }
                 //         }
                 //     );
                 // });
@@ -354,28 +382,32 @@ String.prototype.replaceAt=function(index, replacement) {
     return this.substr(0, index) + replacement+ this.substr(index + replacement.length);
 };
 
-router.post('/test', function (req, res, next) {
-    //December 9th 2018, 4:01:49 pm
-    // const mydate=moment('December 9th 2018, 4:01:49 pm').format();
+// router.post('/test', function (req, res, next) {
+//     //December 9th 2018, 4:01:49 pm
+//     // const mydate=moment('December 9th 2018, 4:01:49 pm').format();
 
-    var date = moment("December 9th 2018, 4:01:49 pm","MMMM Do YYYY, h:mm:s a");   
-    //there will be a moment which is now ...and that one needs to be searched in the table drone_telemetry
+//     // var date = moment("December 9th 2018, 4:01:49 pm","MMMM Do YYYY, h:mm:s a");   
+//     var mydate=car_data.date;
+//     //there will be a moment which is now ...and that one needs to be searched in the table drone_telemetry
    
-    connection.query('SELECT * FROM drone_telemetry', function (error, results, fields) {
-        for(var i =0;i<results.length;i++){
-            // log(results[i].timestamp);
-            var droneTelemetryDate=moment(results[i].timestamp,"MMMM Do YYYY, h:mm:s a");
-            //where mydate is the date when the car was detected
-            if(mydate.diff(droneTelemetryDate, "seconds")<5){
-                // set here the x and y co ords
-                // console.log(results[i].latitude);
-                // console.log(results[i].longitude);
-                // console.log(results[i].timestamp);
-            }
-        }
-    });
-    res.end();
-});
+//     connection.query('SELECT * FROM drone_telemetry', function (error, results, fields) {
+//         for(var i =0;i<results.length;i++){
+//             // log(results[i].timestamp);
+//             var droneTelemetryDate=moment(results[i].timestamp,"MMMM Do YYYY, h:mm:s a");
+//             //where mydate is the date when the car was detected
+//             if(mydate.diff(droneTelemetryDate, "seconds")<5){
+//                 // set here the x and y co ords
+//                 const altitude=results[i].altitude;
+//                 const gpsCOORDs=results[i].latitude.substr(0,5) + " " + results[i].longitude.substr(0,5);
+//                 connection.query('UPDATE car_data set gps_coord=?, where id=?', [gpsCOORDs,results[0].id], function (errorrr, results, fields) {
+//                     log("gps coord were updated");
+//                 });
+
+//             }
+//         }
+//     });
+//     res.end();
+// });
 
 
 

@@ -34,6 +34,7 @@ body
                         th Valid permit
                         th Nct expiry date
                         th gps coord
+                        th altitude
                         th Proof
 
                     each user in car_data
@@ -43,6 +44,7 @@ body
                         td=user.valid_permit
                         td=user.nct
                         td=user.gps_coord
+                        td=user.altitude
                         td
                             button(type='button', class='regPlateButton' id=user.id) Proof
                         tr
