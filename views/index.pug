@@ -36,11 +36,11 @@ body
                         th Nct expiry date
                         th gps coord
                         th altitude
-                        th Proof
                         th car make
                         th car colour
                         th car year
                         th car type
+                        th Proof
 
                     each user in car_data
                         td=user.id
@@ -52,12 +52,12 @@ body
                             a(href='http://maps.google.com?q='+user.gps_coord target="_blank") #{user.gps_coord}
             
                         td=user.altitude
-                        td
+                        td=user.car_make
+                        td=user.car_colour
+                        td=user.car_year
+                        td=user.car_body
+                         td
                             button(type='button', class='regPlateButton' id=user.id) Proof
-                        td=user.make
-                        td=user.colour
-                        td=user.year
-                        td=user.body
                         tr
 
 
