@@ -77,6 +77,12 @@ router.post('/logout', function (req, res, next) {
 router.post('/alprPOST', function (req, res, next) {
     res.end();
     if((req._parsedUrl.query==="postedFromOpenAlprfyp2018")){
+        // console.log(req.body.vehicle.color);
+        console.log(req.body.vehicle.color[0].name);
+        console.log(req.body.vehicle.body_type[0].name);
+        console.log(req.body.vehicle.year[0].name);
+        console.log(req.body.vehicle.make_model[0].name);
+
         // var regex = /\d{2,3}[(CW)]\d{1,6}/;
         var regex =/\d{1,3}(KK|kk|ww|WW|c|C|ce|CE|cn|CN|cw|CW|d|D|dl|DL|g|G|ke|KE|ky|KY|l|L|ld|LD|lh|LH|lk|LK|lm|LM|ls|LS|mh|MH|mn|MN|mo|MO|oy|OY|so|SO|rn|RN|tn|TN|ts|TS|w|W|wd|WD|wh|WH|wx|WX)\d{1,6}/;
         //change this to the sender lol
@@ -195,7 +201,7 @@ router.post('/alprPOST', function (req, res, next) {
             }
             async function thirdFunction(){
                 var result = await firstFunction();
-                connection.query('INSERT INTO car_data (car_reg, date, valid_permit, gps_coord, nct) VALUES (?,?,?,?,?)', [car_data.car_reg, car_data.date, car_data.valid_permit, car_data.gps_coord, car_data.nct], function (err, result) {
+                connection.query('INSERT INTO car_data (car_reg, date, valid_permit, gps_coord, nct, car_make, car_body, car_colour, car_year) VALUES (?,?,?,?,?,?,?,?,?)', [car_data.car_reg, car_data.date, car_data.valid_permit, car_data.gps_coord, car_data.nct, req.body.vehicle.make_model[0].name, req.body.vehicle.body_type[0].name, req.body.vehicle.color[0].name, req.body.vehicle.year[0].name], function (err, result) {
                     if (err)
                         console.log(err);
                     console.log(car_data);
