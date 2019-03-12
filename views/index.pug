@@ -5,7 +5,6 @@ head
     script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js', integrity='sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa', crossorigin='anonymous')
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u', crossorigin='anonymous')
     link(rel='stylesheet', href='/stylesheets/style.css')
-    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css')
 
 body
     form#logout(action='/logout', method='post', role='form', style='display: block;')
@@ -34,12 +33,11 @@ body
                         th Timestamp
                         th Valid permit
                         th Nct expiry date
-                        th gps coord
-                        th altitude
-                        th car make
-                        th car colour
-                        th car year
-                        th car type
+                        th GPS coord
+                        th Altitude
+                        th Car make
+                        th Car colour
+                        th Car type
                         th Proof
 
                     each user in car_data
@@ -54,7 +52,6 @@ body
                         td=user.altitude
                         td=user.car_make
                         td=user.car_colour
-                        td=user.car_year
                         td=user.car_body
                          td
                             button(type='button', class='regPlateButton' id=user.id) Proof

@@ -80,7 +80,6 @@ router.post('/alprPOST', function (req, res, next) {
         // console.log(req.body.vehicle.color);
         console.log(req.body.vehicle.color[0].name);
         console.log(req.body.vehicle.body_type[0].name);
-        console.log(req.body.vehicle.year[0].name);
         console.log(req.body.vehicle.make_model[0].name);
 
         // var regex = /\d{2,3}[(CW)]\d{1,6}/;
@@ -201,7 +200,7 @@ router.post('/alprPOST', function (req, res, next) {
             }
             async function thirdFunction(){
                 var result = await firstFunction();
-                connection.query('INSERT INTO car_data (car_reg, date, valid_permit, gps_coord, nct, car_make, car_body, car_colour, car_year) VALUES (?,?,?,?,?,?,?,?,?)', [car_data.car_reg, car_data.date, car_data.valid_permit, car_data.gps_coord, car_data.nct, req.body.vehicle.make_model[0].name, req.body.vehicle.body_type[0].name, req.body.vehicle.color[0].name, req.body.vehicle.year[0].name], function (err, result) {
+                connection.query('INSERT INTO car_data (car_reg, date, valid_permit, gps_coord, nct, car_make, car_body, car_colour) VALUES (?,?,?,?,?,?,?,?)', [car_data.car_reg, car_data.date, car_data.valid_permit, car_data.gps_coord, car_data.nct, req.body.vehicle.make_model[0].name, req.body.vehicle.body_type[0].name, req.body.vehicle.color[0].name], function (err, result) {
                     if (err)
                         console.log(err);
                     console.log(car_data);
@@ -416,6 +415,16 @@ String.prototype.replaceAt=function(index, replacement) {
 //     });
 //     res.end();
 // });
+
+router.post('/home', function (req, res, next) {
+    if(req.session.user === null){
+        res.render('/homepage');
+    }
+    else{
+        res.redirect('/');
+    }
+});
+
 
 
 

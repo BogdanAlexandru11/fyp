@@ -20,9 +20,13 @@ table, th, td {
 table {
     border-spacing: 15px;
 }
+th,td { 
+    text-align: center;
+}
 
 .center {
     text-align: center;
+    margin : auto;
 }
 
 .modal-dialog {
