@@ -1,41 +1,38 @@
+// the user credentials used by the NodeJS server to connect to the MySQL databases
 CREATE USER 'fyp_user'@'localhost' IDENTIFIED BY 'fyp_password@my123!';
 GRANT ALL PRIVILEGES ON * . * TO 'fyp_user'@'localhost';
 FLUSH PRIVILEGES;
 CREATE DATABASE fyp;
 
-
-CREATE TABLE car_data (
-    id int NOT NULL AUTO_INCREMENT,
-    car_reg varchar(255),
-    date varchar(255),
-    valid_permit varchar(255),
-    x_coord varchar(255),
-    y_coord varchar(255),
-    PRIMARY KEY (ID)
-);
-
-
-CREATE TABLE valid_permits (
-    id int NOT NULL AUTO_INCREMENT,
-    car_reg varchar(255),
-    paidDate varchar(255),
-    PRIMARY KEY (ID)
-);
+CREATE TABLE `car_data` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `car_reg` varchar(255) DEFAULT NULL,
+  `date` varchar(255) DEFAULT NULL,
+  `valid_permit` varchar(255) DEFAULT NULL,
+  `gps_coord` varchar(255) DEFAULT NULL,
+  `nct` varchar(255) DEFAULT NULL,
+  `altitude` varchar(255) DEFAULT NULL,
+  `car_make` varchar(255) DEFAULT NULL,
+  `car_body` varchar(255) DEFAULT NULL,
+  `car_colour` varchar(255) DEFAULT NULL,
+  `car_year` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=457 DEFAULT CHARSET=latin1;
 
 
-CREATE TABLE drone_telemetry (
-    id int NOT NULL AUTO_INCREMENT,
-    latitude varchar(255),
-    longitude varchar(255),
-     timestamp varchar(255),
-    PRIMARY KEY (ID)
-);
-
-insert into valid_permits(car_reg, paidDate) values('12CW1484', '18-10.2018');
-insert into car_data(car_reg) values('123');
-
-ALTER TABLE car_data ADD nct varchar(255);
+CREATE TABLE `drone_telemetry` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `latitude` varchar(255) DEFAULT NULL,
+  `longitude` varchar(255) DEFAULT NULL,
+  `timestamp` varchar(255) DEFAULT NULL,
+  `altitude` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=188 DEFAULT CHARSET=latin1;
 
 
-
-kill -9 $(ps aux | grep 'firefox' | grep -v 'grep' | awk '{print $2}')
+CREATE TABLE `valid_permits` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,s
+  `car_reg` varchar(255) DEFAULT NULL,
+  `paidDate` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
